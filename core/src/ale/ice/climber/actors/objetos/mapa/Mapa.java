@@ -54,7 +54,7 @@ public class Mapa extends Objeto{
         sueloShape.setAsBox(position.x,position.y);
         sueloFixture = body.createFixture(sueloShape,3f);
         sueloFixture.setUserData("suelo");
-        sueloFixture.setFriction(0.8f);
+        sueloFixture.setFriction(5);
         
         PolygonShape shapeIzquierdo = new PolygonShape();
         

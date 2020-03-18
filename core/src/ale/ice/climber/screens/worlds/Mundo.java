@@ -39,6 +39,7 @@ public abstract class Mundo extends BaseScreen {
     protected boolean moverCamara;
     protected boolean movimientoDeCamara;
     protected int camaraNivel;
+    protected boolean hayQueReiniciar;
     Box2DDebugRenderer boxDebug;
     
     
@@ -48,6 +49,7 @@ public abstract class Mundo extends BaseScreen {
         moverCamara = false;
         movimientoDeCamara = false;
         camaraNivel=268;
+        hayQueReiniciar = false;
         
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));      
         world = new World(new Vector2(0,-20), true);
@@ -58,17 +60,21 @@ public abstract class Mundo extends BaseScreen {
        world.setContactListener(new Colisiones(this));   
     }
     
+    @Override 
+    public void show(){
+        createItems();
+    }
+    
     @Override
     public void hide(){
-        map.detach();
-        map.remove();
-        jugador.detach();
-        jugador.remove();
+        deleteItems();
     }
     
     @Override
     public void render(float delta){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        murioElJugador();
 
         world.step(delta, 6, 2);
         
@@ -100,6 +106,35 @@ public abstract class Mundo extends BaseScreen {
         destruirBloques();
         stage.draw();
     }
+    
+    protected void gameOver(){
+        if(jugador.getNumeroDeVidas()==0){
+            //menu
+        }
+    }
+    
+    public void seCayoJugador(){
+//        if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2)){
+//            //reiniciarNivel();
+//            System.out.println("true");
+//        }
+    }
+    
+    public void murioElJugador(){
+        seCayoJugador();
+        if(hayQueReiniciar){
+            stage.getCamera().position.y = Gdx.graphics.getHeight()/2;
+            mainGame.setScreen(mainGame.getScreen());
+            hayQueReiniciar = false;
+            moverCamara = false;
+            movimientoDeCamara = false;
+            camaraNivel=268;
+        }
+    }
+    
+    public void reiniciarNivel(){
+        hayQueReiniciar = true;
+    }
      
     protected void moverCamara(float delta){
         if(jugador.getY()>camaraNivel+256 && moverCamara){
@@ -122,6 +157,33 @@ public abstract class Mundo extends BaseScreen {
                 bloques.listaDeBloques.remove(i);
             }
          }
+    }
+    
+    protected void recorrerBloques(){
+        for(int i=0; i<bloques.listaDeBloques.size();i++){
+            stage.addActor(bloques.listaDeBloques.get(i));
+        }
+    }
+    
+    protected void recorrerEnemigos(){
+        for(int i=0; i<enemigos.listaDeEnemigos.size(); i++){
+            stage.addActor(enemigos.listaDeEnemigos.get(i));
+        }
+    }
+    
+    public abstract void createItems();
+    
+    public void deleteItems(){
+        map.detach();
+        map.remove();
+        
+        jugador.detach();
+        jugador.remove();
+        
+        nieve.remove();
+        
+        bloques.disposeList();
+        enemigos.disposeList();
     }
     
     public void setMoverCamara(boolean b){

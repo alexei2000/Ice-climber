@@ -33,8 +33,8 @@ public abstract class Objeto extends Actor {
         setSize(PIM*width,PIM*height);   
     }
     
-    public void textureDispose(){
-        texture.dispose();
+    public Body getBody(){
+       return this.body;
     }
     
     protected abstract void createBody(Vector2 position);

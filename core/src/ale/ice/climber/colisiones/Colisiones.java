@@ -28,9 +28,18 @@ public class Colisiones implements ContactListener {
                 contact.getFixtureA().getUserData().equals(b) && contact.getFixtureB().getUserData().equals(a));
                 
     }
+    
+    private void perderVida(Contact contact){
+        if(hanColisionado(contact,"pies","piesEnemigo") || hanColisionado(contact,"pies","cabezaEnemigo")){
+            mundo.getJugador().perderUnaVida();
+            mundo.reiniciarNivel();
+        }
+    }
           
     @Override
     public void beginContact(Contact contact) {
+        
+        perderVida(contact);
         
         if(hanColisionado(contact,"pies","suelo")){
             mundo.getJugador().setEstaEnElSuelo(true);

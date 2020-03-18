@@ -36,6 +36,7 @@ public abstract class Bloque extends Objeto {
         createBody(position);
         setNameFixture();
         
+        
     }
     
     @Override
@@ -84,7 +85,7 @@ public abstract class Bloque extends Objeto {
         fixtureDerecho.setFriction(0.8f);
         fixtureInferior.setFriction(0.8f);
         fixtureIzquierdo.setFriction(0.8f);
-        fixtureSuperior.setFriction(0.8f);
+        fixtureSuperior.setFriction(5);
                 
         sup.dispose();
         inf.dispose();
@@ -97,10 +98,6 @@ public abstract class Bloque extends Objeto {
     }
     public boolean getDestruido(){
         return destruido;
-    }
-    
-    public Body getBody(){
-       return this.body;
     }
     
     protected abstract void setNameFixture();

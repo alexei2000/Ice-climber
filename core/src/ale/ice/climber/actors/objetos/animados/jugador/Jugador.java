@@ -24,6 +24,7 @@ public class Jugador extends ObjetoAnimado {
     
     private boolean estaEnElSuelo;
     private int estadoDeAnimacion;
+    private static int numeroDeVidas = 3;
     
     
     public Jugador(World world, Texture texture,Vector2 position) {
@@ -182,6 +183,18 @@ public class Jugador extends ObjetoAnimado {
             body.applyLinearImpulse(new Vector2(0,36),body.getPosition(),true);
             estaEnElSuelo=false;
         }    
+    }
+    
+    public void resetNumeroDeVidas(){
+        Jugador.numeroDeVidas = 3;
+    }
+    
+    public int getNumeroDeVidas(){
+        return Jugador.numeroDeVidas;
+    }
+    
+    public void perderUnaVida(){
+        Jugador.numeroDeVidas--;
     }
     
     public void setEstaEnElSuelo(boolean b){

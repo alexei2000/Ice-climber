@@ -22,10 +22,9 @@ public class Mundo1 extends Mundo{
     public Mundo1(Main mainGame) {
         super(mainGame);
     }
-    
+
     @Override
-    public void show(){
-        
+    public void createItems() {
         Texture textureMap = mainGame.getMapaTexture();
         Texture skinJugador = mainGame.getJugadorTexture();
         Texture bloqueSolidoTexture = mainGame.getBloqueHieloSolidoTexture();
@@ -46,26 +45,6 @@ public class Mundo1 extends Mundo{
         stage.addActor(nieve);
        
         recorrerBloques();
-              
-    }
-    
-    @Override
-    public void hide(){
-        super.hide();
-        bloques.disposeList();
-        
-    }
-    
-    void recorrerBloques(){
-        for(int i=0; i<bloques.listaDeBloques.size();i++){
-            stage.addActor(bloques.listaDeBloques.get(i));
-        }
-    }
-    
-    void recorrerEnemigos(){
-        for(int i=0; i<enemigos.listaDeEnemigos.size(); i++){
-            stage.addActor(enemigos.listaDeEnemigos.get(i));
-        }
     }
     
 }
