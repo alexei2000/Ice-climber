@@ -86,9 +86,6 @@ public abstract class ObjetoAnimado extends Objeto{
             }
         }
         
-        body.destroyFixture(fixtureHead);
-        body.destroyFixture(fixtureBody);
-        createFixture();
     }
     
     public void transportarEntidad(){
@@ -105,6 +102,10 @@ public abstract class ObjetoAnimado extends Objeto{
     
     public void setCambiarEntidadPosicion(int p){
         this.cambiarJugadorPosion = p;
+    }
+    
+   protected boolean estaEnElAire(){
+        return body.getLinearVelocity().y!=0;
     }
     
     protected abstract void animationUpdate();

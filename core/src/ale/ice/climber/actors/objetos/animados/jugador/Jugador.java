@@ -168,16 +168,20 @@ public class Jugador extends ObjetoAnimado {
         volteado=true;
     }
     
+    @Override
+    protected void voltear(){
+        super.voltear();
+        body.destroyFixture(fixtureHead);
+        body.destroyFixture(fixtureBody);
+        createFixture();
+    }
+    
     private void saltar(){
         if(!estaEnElAire() && estaEnElSuelo){
             setAnimation(2);
             body.applyLinearImpulse(new Vector2(0,36),body.getPosition(),true);
             estaEnElSuelo=false;
         }    
-    }
-    
-    private boolean estaEnElAire(){
-        return body.getLinearVelocity().y!=0;
     }
     
     public void setEstaEnElSuelo(boolean b){

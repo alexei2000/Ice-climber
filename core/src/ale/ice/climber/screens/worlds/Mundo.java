@@ -9,23 +9,18 @@ import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
 import ale.ice.climber.actors.objetos.mapa.Nieve;
 import ale.ice.climber.Main;
+import ale.ice.climber.actors.objetos.animados.enemigos.GeneradorDeEnemigos;
 import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import ale.ice.climber.lights.Sun;
 import ale.ice.climber.screens.BaseScreen;
-import ale.ice.climber.screens.worlds.mundo1.BloquesMundo1;
 
 /**
  *
@@ -40,6 +35,7 @@ public abstract class Mundo extends BaseScreen {
     protected final Stage stage;
     protected final Sun sun;
     protected GeneradorDeBloques bloques;
+    protected GeneradorDeEnemigos enemigos;
     protected boolean moverCamara;
     protected boolean movimientoDeCamara;
     protected int camaraNivel;
@@ -80,7 +76,7 @@ public abstract class Mundo extends BaseScreen {
         
         updateAndDrawActors();
         
-        //boxDebug.render(world,stage.getCamera().combined.cpy().scl(64f) );
+        boxDebug.render(world,stage.getCamera().combined.cpy().scl(64f) );
         
         updateAndDrawLights();
           
@@ -136,9 +132,15 @@ public abstract class Mundo extends BaseScreen {
         return this.jugador;
     }
     
+    public GeneradorDeEnemigos getEnemigos(){
+        return this.enemigos;
+    }
+    
     public GeneradorDeBloques getBloques(){
         return this.bloques;
     }
+    
+    
     
     
     

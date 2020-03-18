@@ -9,7 +9,6 @@ import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
 import ale.ice.climber.actors.objetos.mapa.Nieve;
 import ale.ice.climber.Main;
-import ale.ice.climber.actors.objetos.animados.enemigos.Enemigo;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import ale.ice.climber.screens.worlds.Mundo;
@@ -19,8 +18,6 @@ import ale.ice.climber.screens.worlds.Mundo;
  * @author alexe
  */
 public class Mundo1 extends Mundo{
-    
-    private Enemigo enemigo;
     
     public Mundo1(Main mainGame) {
         super(mainGame);
@@ -34,21 +31,20 @@ public class Mundo1 extends Mundo{
         Texture bloqueSolidoTexture = mainGame.getBloqueHieloSolidoTexture();
         Texture bloqueRotoTexture = mainGame.getBloqueHieloRoto();
         Texture bordeNieve = mainGame.getNieveBorde();
-        Texture enemigoTexture = mainGame.getYetiTexture();
         
         bloques = new BloquesMundo1(world,bloqueSolidoTexture,bloqueRotoTexture);
+        enemigos = new EnemigosMundo1(world, mainGame.getYetiTexture(), mainGame.getOsoTexture());
         
         
         map = new Mapa(world,textureMap);
         nieve = new Nieve(bordeNieve);
         jugador = new Jugador(world,skinJugador,new Vector2(2f,1f));
-        enemigo = new Enemigo(world,enemigoTexture,new Vector2(2f,9f));
     
         stage.addActor(map);
         stage.addActor(jugador);
-        stage.addActor(enemigo);
+        recorrerEnemigos();
         stage.addActor(nieve);
-        
+       
         recorrerBloques();
               
     }
@@ -63,6 +59,12 @@ public class Mundo1 extends Mundo{
     void recorrerBloques(){
         for(int i=0; i<bloques.listaDeBloques.size();i++){
             stage.addActor(bloques.listaDeBloques.get(i));
+        }
+    }
+    
+    void recorrerEnemigos(){
+        for(int i=0; i<enemigos.listaDeEnemigos.size(); i++){
+            stage.addActor(enemigos.listaDeEnemigos.get(i));
         }
     }
     

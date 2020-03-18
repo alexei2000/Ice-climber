@@ -28,9 +28,51 @@ public class Colisiones implements ContactListener {
                 contact.getFixtureA().getUserData().equals(b) && contact.getFixtureB().getUserData().equals(a));
                 
     }
+    
+    private void colisionEnemigos(Contact contact){
+        
+        if(hanColisionado(contact, "paredDerecha", "piesEnemigo")){
+            if(contact.getFixtureA().equals("piesEnemigo")){
+                Body body = contact.getFixtureA().getBody();
+                 for(int i=0; i<mundo.getEnemigos().listaDeEnemigos.size();i++){
+                     if(body.getLinearVelocity().x==0){
+                         mundo.getEnemigos().listaDeEnemigos.get(i).cambiarDireccion();
+                     }
+                 }
+            }
+            else{
+                Body body = contact.getFixtureB().getBody();
+                 for(int i=0; i<mundo.getEnemigos().listaDeEnemigos.size();i++){
+                     if(body.getLinearVelocity().x==0){
+                         mundo.getEnemigos().listaDeEnemigos.get(i).cambiarDireccion();
+                     }
+                 }
+            }
+        }
+         if(hanColisionado(contact, "paredIzquierda", "piesEnemigo")){
+            if(contact.getFixtureA().equals("piesEnemigo")){
+                Body body = contact.getFixtureA().getBody();
+                 for(int i=0; i<mundo.getEnemigos().listaDeEnemigos.size();i++){
+                     if(body.getLinearVelocity().x==0){
+                         mundo.getEnemigos().listaDeEnemigos.get(i).cambiarDireccion();
+                     }
+                 }
+            }
+            else{
+                Body body = contact.getFixtureB().getBody();
+                 for(int i=0; i<mundo.getEnemigos().listaDeEnemigos.size();i++){
+                     if(body.getLinearVelocity().x==0){
+                         mundo.getEnemigos().listaDeEnemigos.get(i).cambiarDireccion();
+                     }
+                 }
+            }
+        }
+    }
             
     @Override
     public void beginContact(Contact contact) {
+        
+        colisionEnemigos(contact);
         
         if(hanColisionado(contact,"pies","suelo")){
             mundo.getJugador().setEstaEnElSuelo(true);
