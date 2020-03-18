@@ -36,6 +36,9 @@ public abstract class Enemigo extends ObjetoAnimado {
     @Override
     protected void moverse(float delta) {
         duracion+=delta;
+        if(body.getLinearVelocity().x==0){
+            cambiarDireccion();
+        }
         if(direccion && !estaEnElAire()){
             moveLeft();
         }
