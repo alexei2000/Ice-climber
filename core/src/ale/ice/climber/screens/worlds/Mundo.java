@@ -12,6 +12,7 @@ import ale.ice.climber.Main;
 import ale.ice.climber.actors.objetos.animados.enemigos.GeneradorDeEnemigos;
 import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
+import ale.ice.climber.gui.guiInGame.Vidas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
@@ -36,6 +37,7 @@ public abstract class Mundo extends BaseScreen {
     protected final Sun sun;
     protected GeneradorDeBloques bloques;
     protected GeneradorDeEnemigos enemigos;
+    protected Vidas vidas;
     protected boolean moverCamara;
     protected boolean movimientoDeCamara;
     protected int camaraNivel;
@@ -55,9 +57,10 @@ public abstract class Mundo extends BaseScreen {
         world = new World(new Vector2(0,-20), true);
         sun = new Sun(world);
         
-       boxDebug = new Box2DDebugRenderer();
+        boxDebug = new Box2DDebugRenderer();
         
-       world.setContactListener(new Colisiones(this));   
+        world.setContactListener(new Colisiones(this)); 
+     
     }
     
     @Override 
@@ -181,6 +184,7 @@ public abstract class Mundo extends BaseScreen {
         jugador.remove();
         
         nieve.remove();
+        vidas.remove();
         
         bloques.disposeList();
         enemigos.disposeList();

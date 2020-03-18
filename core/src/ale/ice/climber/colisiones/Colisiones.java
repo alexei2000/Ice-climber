@@ -34,6 +34,10 @@ public class Colisiones implements ContactListener {
             mundo.getJugador().perderUnaVida();
             mundo.reiniciarNivel();
         }
+        if(hanColisionado(contact,"cabeza","piesEnemigo")){
+            mundo.getJugador().perderUnaVida();
+            mundo.reiniciarNivel();
+        }
     }
           
     @Override

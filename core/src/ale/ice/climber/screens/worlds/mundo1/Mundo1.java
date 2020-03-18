@@ -9,6 +9,7 @@ import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
 import ale.ice.climber.actors.objetos.mapa.Nieve;
 import ale.ice.climber.Main;
+import ale.ice.climber.gui.guiInGame.Vidas;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import ale.ice.climber.screens.worlds.Mundo;
@@ -38,6 +39,8 @@ public class Mundo1 extends Mundo{
         map = new Mapa(world,textureMap);
         nieve = new Nieve(bordeNieve);
         jugador = new Jugador(world,skinJugador,new Vector2(2f,1f));
+        
+        vidas = new Vidas(jugador,stage.getCamera(),mainGame.getCabezaDePersonaje());
     
         stage.addActor(map);
         stage.addActor(jugador);
@@ -45,6 +48,7 @@ public class Mundo1 extends Mundo{
         stage.addActor(nieve);
        
         recorrerBloques();
+        stage.addActor(vidas);
     }
     
 }

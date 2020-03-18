@@ -15,6 +15,7 @@ public class Main extends Game {
     private String nieveBorde;
     private String yetiTexture;
     private String osoTexture;
+    private String cabezaDePersonaje;
     
     private AssetManager manager;
     
@@ -42,6 +43,10 @@ public class Main extends Game {
     public Texture getOsoTexture(){
         return manager.get(osoTexture);
     }
+    
+    public Texture getCabezaDePersonaje(){
+        return manager.get(cabezaDePersonaje);
+    }
 
     @Override
     public void create () {
@@ -53,6 +58,7 @@ public class Main extends Game {
         nieveBorde = "nieve para los bordes_Mesa de trabajo 1.png";
         yetiTexture = "YETI HIPPIE_Mesa de trabajo 1.png";
         osoTexture = "oso ice climber_Mesa de trabajo 1.png";
+        cabezaDePersonaje = "cabeza_Mesa de trabajo 1.png";
         
         manager = new AssetManager();
         manager.load(mapaTexture,Texture.class);
@@ -61,6 +67,7 @@ public class Main extends Game {
         manager.load(bloqueHieloRoto,Texture.class);
         manager.load(nieveBorde,Texture.class);
         manager.load(yetiTexture, Texture.class);
+        manager.load(cabezaDePersonaje, Texture.class);
         manager.load(osoTexture, Texture.class);
         manager.finishLoading();
         setScreen(new Mundo1(this)) ; 
