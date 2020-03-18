@@ -114,10 +114,10 @@ public abstract class Mundo extends BaseScreen {
     }
     
     public void seCayoJugador(){
-//        if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2)){
-//            //reiniciarNivel();
-//            System.out.println("true");
-//        }
+       if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2)/64){
+           reiniciarNivel();
+            
+        }
     }
     
     public void murioElJugador(){
