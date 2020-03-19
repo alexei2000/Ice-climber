@@ -85,7 +85,7 @@ public abstract class Bloque extends Objeto {
         fixtureDerecho.setFriction(0.8f);
         fixtureInferior.setFriction(0.8f);
         fixtureIzquierdo.setFriction(0.8f);
-        fixtureSuperior.setFriction(5);
+        fixtureSuperior.setFriction(0.8f);
                 
         sup.dispose();
         inf.dispose();
