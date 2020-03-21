@@ -21,6 +21,7 @@ public class Main extends Game {
     private String cabezaDePersonaje;
     private String fondoMenu;
     private String puertaTexture;
+    private String mapa2Texture;
     
     private AssetManager manager;
     
@@ -64,6 +65,10 @@ public class Main extends Game {
     public Texture getPuertaTexture(){
         return manager.get(puertaTexture);
     }
+    
+    public Texture getMapa2Texture(){
+        return manager.get(mapa2Texture);
+    }
 
     @Override
     public void create () {
@@ -79,6 +84,7 @@ public class Main extends Game {
         skinUI = "skin/skin/freezing-ui.json";
         fondoMenu = "fondo menu_Mesa de trabajo 1.png";
         puertaTexture = "puerta.png";
+        mapa2Texture = "mapa2_Mesa de trabajo 1.png";
         
         manager = new AssetManager();
         manager.load(skinUI,Skin.class);
@@ -92,6 +98,7 @@ public class Main extends Game {
         manager.load(osoTexture, Texture.class);
         manager.load(fondoMenu, Texture.class);
         manager.load(puertaTexture, Texture.class);
+        manager.load(mapa2Texture,Texture.class);
         manager.finishLoading();
         setScreen(new Menu(this)) ; 
     }
