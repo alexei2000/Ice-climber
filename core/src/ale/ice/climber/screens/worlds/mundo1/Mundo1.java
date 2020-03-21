@@ -28,7 +28,7 @@ public class Mundo1 extends Mundo{
 
     @Override
     public void createItems() {
-        Texture textureMap = mainGame.getMapaTexture();
+        Texture textureMap = mainGame.getMapa1Texture();
         Texture skinJugador = mainGame.getJugadorTexture();
         Texture bloqueSolidoTexture = mainGame.getBloqueHieloSolidoTexture();
         Texture bloqueRotoTexture = mainGame.getBloqueHieloRoto();

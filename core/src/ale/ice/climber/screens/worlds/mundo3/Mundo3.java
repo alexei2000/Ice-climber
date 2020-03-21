@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ale.ice.climber.screens.worlds.mundo2;
+package ale.ice.climber.screens.worlds.mundo3;
 
 import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
@@ -15,28 +15,27 @@ import ale.ice.climber.screens.gui.guiInMenu.Menu;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import ale.ice.climber.screens.worlds.Mundo;
-import ale.ice.climber.screens.worlds.mundo3.Mundo3;
 
 /**
  *
  * @author alexe
  */
-public class Mundo2 extends Mundo{
+public class Mundo3 extends Mundo{
     
-    public Mundo2(Main mainGame) {
+    public Mundo3(Main mainGame) {
         super(mainGame);
     }
 
     @Override
     public void createItems() {
-        Texture textureMap = mainGame.getMapa2Texture();
+        Texture textureMap = mainGame.getMapa3Texture();
         Texture skinJugador = mainGame.getJugadorTexture();
         Texture bloqueSolidoTexture = mainGame.getBloqueHieloSolidoTexture();
         Texture bloqueRotoTexture = mainGame.getBloqueHieloRoto();
         Texture bordeNieve = mainGame.getNieveBorde();
         
-        bloques = new BloquesMundo2(world,bloqueSolidoTexture,bloqueRotoTexture);
-        enemigos = new EnemigosMundo2(world, mainGame.getYetiTexture(), mainGame.getOsoTexture());
+        bloques = new BloquesMundo3(world,bloqueSolidoTexture,bloqueRotoTexture);
+        enemigos = new EnemigosMundo3(world, mainGame.getYetiTexture(), mainGame.getOsoTexture());
         
         puertaInicio = new Puerta(world, mainGame.getPuertaTexture(),new Vector2(3,1.5f),"puertaInicio");
         puertaFinal = new Puerta(world, mainGame.getPuertaTexture(),new Vector2(6.5f,62),"puertaFinal");
@@ -60,7 +59,7 @@ public class Mundo2 extends Mundo{
 
     @Override
     public void siguienteNivel() {
-        mainGame.setScreen(new Mundo3(mainGame));
+        mainGame.setScreen(new Menu(mainGame));
     }
     
 }
