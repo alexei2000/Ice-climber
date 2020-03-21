@@ -78,26 +78,26 @@ public class Jugador extends ObjetoAnimado {
             
         if(!flipFixture){
             
-            circle.setRadius(width/2+0.03f);
-            circle.setPosition(new Vector2(0.01f,height/2-0.1f));
+            circle.setRadius(width/2+0.06f);
+            circle.setPosition(new Vector2(0.06f,height/2-0.1f));
     
-            vertices[0] = new Vector2(-width/4+0.15f,height/4);
+            vertices[0] = new Vector2(-width/4+0.15f,height/4+0.15f);
             vertices[1] = new Vector2(-width/4,0);
             vertices[2] = new Vector2(0.1f,-height/4);
-            vertices[3] = new Vector2(width-0.05f,-height/4);
-            vertices[4] = new Vector2(width/2+0.1f,height/4);
+            vertices[3] = new Vector2(width-0.2f,-height/4);
+            vertices[4] = new Vector2(width/2+0.1f,height/4+0.15f);
             
             
         }
         else{
-            circle.setRadius(width/2+0.03f);
-            circle.setPosition(new Vector2(0.45f,height/2-0.1f));
+            circle.setRadius(width/2+0.06f);
+            circle.setPosition(new Vector2(0.4f,height/2-0.1f));
             
-            vertices[0] = new Vector2(-(-width/4+0.15f),height/4);//1
-            vertices[1] = new Vector2(-width/4,-height/4);//2
+            vertices[0] = new Vector2(-width/4+0.2f,height/4+0.15f);//1
+            vertices[1] = new Vector2(-width/4+0.2f,-height/4);//2
             vertices[2] = new Vector2(width/2+0.05f,-height/4);//3
             vertices[3] = new Vector2(width,0);//4
-            vertices[4] = new Vector2(width/2+0.15f,height/4);//5
+            vertices[4] = new Vector2(width/2+0.15f,height/4+0.15f);//5
         }
         
         
@@ -144,8 +144,8 @@ public class Jugador extends ObjetoAnimado {
         if(!estaEnElAire()){
             body.setLinearVelocity(5,0);
         }
-        else{
-            body.applyLinearImpulse(new Vector2(0.13f,0),body.getPosition(),true);
+        else if(body.getLinearVelocity().x < 5 ){
+            body.applyLinearImpulse(new Vector2(1,0),body.getPosition(),true);
         }
         if(volteado){
             flipFixture = false;
@@ -159,8 +159,8 @@ public class Jugador extends ObjetoAnimado {
         if(!estaEnElAire()){
             body.setLinearVelocity(-5,0);
         }
-        else{
-            body.applyLinearImpulse(new Vector2(-0.13f,0),body.getPosition(),true);
+        else if(body.getLinearVelocity().x > -5 ){
+            body.applyLinearImpulse(new Vector2(-1,0),body.getPosition(),true);
         }
         if(!volteado){
             flipFixture = true;
@@ -180,7 +180,7 @@ public class Jugador extends ObjetoAnimado {
     private void saltar(){
         if(!estaEnElAire() && estaEnElSuelo){
             setAnimation(2);
-            body.applyLinearImpulse(new Vector2(0,36),body.getPosition(),true);
+            body.applyLinearImpulse(new Vector2(0,40),body.getPosition(),true);
             estaEnElSuelo=false;
         }    
     }

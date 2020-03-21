@@ -37,20 +37,26 @@ public class YetiHippie extends Enemigo {
     
     @Override
     protected void createFixture() {
-        PolygonShape bodyFixture = new PolygonShape();
-        bodyFixture.setAsBox(width/4, height/4-0.05f);
-        fixtureBody = body.createFixture(bodyFixture,0.3f);
+        
+        Vector2[] vertices = new Vector2[4];
+        vertices[0] = new Vector2(-width/4,3*height/8);
+        vertices[1] = new Vector2(-width/4,-height/4+0.05f);
+        vertices[2] = new Vector2(width/4,-height/4+0.05f);
+        vertices[3] = new Vector2(width/4,3*height/8);
+        PolygonShape figureBody = new PolygonShape();
+        figureBody.set(vertices);
+        fixtureBody = body.createFixture(figureBody,0.3f);
         
         CircleShape circle = new CircleShape();
-        circle.setRadius(width/4-0.05f);
-        circle.setPosition(new Vector2(0.01f,height/2-0.1f));
+        circle.setRadius(width/4);
+        circle.setPosition(new Vector2(0.005f,3*height/8));
         fixtureHead = body.createFixture(circle,0.3f);
         
         fixtureBody.setUserData("piesEnemigo");
         fixtureHead.setUserData("cabezaEnemigo"); 
         
         circle.dispose();
-        bodyFixture.dispose();
+        figureBody.dispose();
     }
 
     

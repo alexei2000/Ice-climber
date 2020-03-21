@@ -31,12 +31,16 @@ public class Colisiones implements ContactListener {
     
     private void perderVida(Contact contact){
         if(hanColisionado(contact,"pies","piesEnemigo") || hanColisionado(contact,"pies","cabezaEnemigo")){
-            mundo.getJugador().perderUnaVida();
             mundo.reiniciarNivel();
         }
         if(hanColisionado(contact,"cabeza","piesEnemigo") || hanColisionado(contact,"cabeza","cabezaEnemigo")){
-            mundo.getJugador().perderUnaVida();
             mundo.reiniciarNivel();
+        }
+    }
+    
+    private void cambiarNivel(Contact contact){
+        if(hanColisionado(contact,"cabeza","puertaFinal")){
+            mundo.setCambiarNivel(true);
         }
     }
           
@@ -44,6 +48,8 @@ public class Colisiones implements ContactListener {
     public void beginContact(Contact contact) {
         
         perderVida(contact);
+        
+        cambiarNivel(contact);
         
         if(hanColisionado(contact,"pies","suelo")){
             mundo.getJugador().setEstaEnElSuelo(true);

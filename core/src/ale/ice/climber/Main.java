@@ -1,12 +1,15 @@
 package ale.ice.climber;
 
+import ale.ice.climber.screens.gui.guiInMenu.Menu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import ale.ice.climber.screens.worlds.mundo1.Mundo1;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 
 public class Main extends Game {
+    
+    private String skinUI;
     
     private String mapaTexture;
     private String jugadorTexture;
@@ -16,6 +19,8 @@ public class Main extends Game {
     private String yetiTexture;
     private String osoTexture;
     private String cabezaDePersonaje;
+    private String fondoMenu;
+    private String puertaTexture;
     
     private AssetManager manager;
     
@@ -47,6 +52,18 @@ public class Main extends Game {
     public Texture getCabezaDePersonaje(){
         return manager.get(cabezaDePersonaje);
     }
+    
+    public Skin getSkinUI(){
+        return manager.get(skinUI);
+    }
+    
+    public Texture getFondoMenu(){
+        return manager.get(fondoMenu);
+    }
+    
+    public Texture getPuertaTexture(){
+        return manager.get(puertaTexture);
+    }
 
     @Override
     public void create () {
@@ -59,8 +76,12 @@ public class Main extends Game {
         yetiTexture = "YETI HIPPIE_Mesa de trabajo 1.png";
         osoTexture = "oso ice climber_Mesa de trabajo 1.png";
         cabezaDePersonaje = "cabeza_Mesa de trabajo 1.png";
+        skinUI = "skin/skin/freezing-ui.json";
+        fondoMenu = "fondo menu_Mesa de trabajo 1.png";
+        puertaTexture = "puerta.png";
         
         manager = new AssetManager();
+        manager.load(skinUI,Skin.class);
         manager.load(mapaTexture,Texture.class);
         manager.load(jugadorTexture,Texture.class);
         manager.load(bloqueHieloSolido,Texture.class);
@@ -69,8 +90,10 @@ public class Main extends Game {
         manager.load(yetiTexture, Texture.class);
         manager.load(cabezaDePersonaje, Texture.class);
         manager.load(osoTexture, Texture.class);
+        manager.load(fondoMenu, Texture.class);
+        manager.load(puertaTexture, Texture.class);
         manager.finishLoading();
-        setScreen(new Mundo1(this)) ; 
+        setScreen(new Menu(this)) ; 
     }
     
     @Override

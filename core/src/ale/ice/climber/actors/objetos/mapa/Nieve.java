@@ -28,7 +28,7 @@ public class Nieve extends Actor {
     }
     
     public void drawNieve(Batch batch){
-        for(int i=0;i<8;i++){
+        for(int i=0;i<17;i++){
 
             if(i==0){
                 nieveTexture.flip(true, false);

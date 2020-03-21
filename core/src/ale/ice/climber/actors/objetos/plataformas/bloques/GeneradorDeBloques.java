@@ -39,7 +39,7 @@ public abstract class GeneradorDeBloques {
     
     public void generarBloquesEnLinea(int num,int type){
         
-       if(countNiveles<9){
+       if(countNiveles<16){
             if(type == 0){
                 for(int i=0; i<num; i++){
                     listaDeBloques.add(new BloqueSolido(world,textureBloqueSolido, position));

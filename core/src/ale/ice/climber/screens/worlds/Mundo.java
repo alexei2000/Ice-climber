@@ -9,10 +9,11 @@ import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
 import ale.ice.climber.actors.objetos.mapa.Nieve;
 import ale.ice.climber.Main;
+import ale.ice.climber.actors.objetos.Puerta;
 import ale.ice.climber.actors.objetos.animados.enemigos.GeneradorDeEnemigos;
 import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
-import ale.ice.climber.gui.guiInGame.Vidas;
+import ale.ice.climber.screens.gui.guiInGame.Vidas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import ale.ice.climber.lights.Sun;
 import ale.ice.climber.screens.BaseScreen;
+import ale.ice.climber.screens.gui.guiInMenu.Menu;
 
 /**
  *
@@ -29,6 +31,9 @@ import ale.ice.climber.screens.BaseScreen;
  */
 public abstract class Mundo extends BaseScreen {
     
+    protected Puerta puertaInicio;
+    protected Puerta puertaFinal;
+    protected boolean cambiarNivel;
     protected Jugador jugador;
     protected Mapa map;
     protected Nieve nieve;
@@ -48,6 +53,7 @@ public abstract class Mundo extends BaseScreen {
     public Mundo(Main mainGame) {
         super(mainGame);
         
+        cambiarNivel = false;
         moverCamara = false;
         movimientoDeCamara = false;
         camaraNivel=268;
@@ -70,12 +76,20 @@ public abstract class Mundo extends BaseScreen {
     
     @Override
     public void hide(){
+        hayQueReiniciar = false;
+        moverCamara = false;
+        movimientoDeCamara = false;
+        camaraNivel=268;
         deleteItems();
     }
     
     @Override
     public void render(float delta){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        if(cambiarNivel){
+            siguienteNivel();
+        }
         
         murioElJugador();
 
@@ -109,16 +123,11 @@ public abstract class Mundo extends BaseScreen {
         destruirBloques();
         stage.draw();
     }
-    
-    protected void gameOver(){
-        if(jugador.getNumeroDeVidas()==0){
-            //menu
-        }
-    }
-    
+ 
     public void seCayoJugador(){
        if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2)/64){
            reiniciarNivel();
+           jugador.perderUnaVida();
             
         }
     }
@@ -127,11 +136,17 @@ public abstract class Mundo extends BaseScreen {
         seCayoJugador();
         if(hayQueReiniciar){
             stage.getCamera().position.y = Gdx.graphics.getHeight()/2;
-            mainGame.setScreen(mainGame.getScreen());
-            hayQueReiniciar = false;
-            moverCamara = false;
-            movimientoDeCamara = false;
-            camaraNivel=268;
+            System.out.println(jugador.getNumeroDeVidas());
+            jugador.perderUnaVida();
+            if(jugador.getNumeroDeVidas() != 0){
+                mainGame.setScreen(mainGame.getScreen());
+            }
+            else{
+                jugador.resetNumeroDeVidas();
+                mainGame.setScreen(new Menu(mainGame));
+                
+            }
+            
         }
     }
     
@@ -176,7 +191,16 @@ public abstract class Mundo extends BaseScreen {
     
     public abstract void createItems();
     
+    public abstract void siguienteNivel();
+    
     public void deleteItems(){
+        
+        puertaInicio.detach();
+        puertaInicio.remove();
+        
+        puertaFinal.detach();
+        puertaFinal.remove(); 
+        
         map.detach();
         map.remove();
         
@@ -205,6 +229,12 @@ public abstract class Mundo extends BaseScreen {
     public GeneradorDeBloques getBloques(){
         return this.bloques;
     }
+    
+    public void setCambiarNivel(boolean cambiarNivel) {
+        this.cambiarNivel = cambiarNivel;
+    }
+    
+    
     
     
     

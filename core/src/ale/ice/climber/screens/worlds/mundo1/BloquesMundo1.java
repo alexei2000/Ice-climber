@@ -38,6 +38,18 @@ public class BloquesMundo1 extends GeneradorDeBloques {
         generarBloquesEnLinea(5,0);
         generarBloquesEnLinea(5,1);
         generarBloquesEnLinea(10,0);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(10,0);
+        generarBloquesEnLinea(8,1);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(10,0);
+        generarBloquesEnLinea(8,1);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(10,0);
+        generarBloquesEnLinea(8,1);
         
     }
     

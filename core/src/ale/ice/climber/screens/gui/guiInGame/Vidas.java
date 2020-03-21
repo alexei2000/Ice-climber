@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ale.ice.climber.gui.guiInGame;
+package ale.ice.climber.screens.gui.guiInGame;
 
 import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import com.badlogic.gdx.Gdx;
