@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import javax.swing.*;
+
 
 public class Main extends Game {
     
@@ -31,12 +33,11 @@ public class Main extends Game {
     private String mapa3Texture;
     
     private AssetManager manager;
-    private Stage stage;
-    private Table progress;
-    private Progress info;
 
     
-    
+    public AssetManager getManager(){
+        return manager;
+    }
     public Texture getMapa1Texture(){
         return manager.get(mapa1Texture);
     }
@@ -90,9 +91,7 @@ public class Main extends Game {
 
     @Override
     public void create () {
-        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
-        Gdx.input.setInputProcessor(stage);
-        
+
         mapa1Texture = "textures/mapas/mapa1.png";
         mapa2Texture = "textures/mapas/mapa2.png";
         mapa3Texture = "textures/mapas/mapa3.png";
@@ -123,27 +122,9 @@ public class Main extends Game {
         manager.load(puertaTexture, Texture.class);
         manager.load(mapa2Texture,Texture.class);
         manager.load(mapa3Texture, Texture.class);
-        info = new Progress(getSkinUI());
-        progress = info.getTable();
-        stage.addActor(progress);
+        setScreen(new Progress(this));
     }
 
-    @Override
-    public void render() {
-        super.render();
-
-        if(manager.update()){
-            setScreen(new Menu(this)) ;
-        }
-        else{
-            Gdx.gl.glClearColor(30/255f, 23/255f, 23/255f, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            System.out.println(manager.getProgress());
-            info.setProgress(manager.getProgress());
-            stage.act(Gdx.graphics.getDeltaTime());
-            stage.draw();
-        }
-    }
 
     @Override
     public void dispose(){
