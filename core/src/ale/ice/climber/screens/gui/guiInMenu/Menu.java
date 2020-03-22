@@ -31,7 +31,6 @@ public class Menu extends BaseScreen{
     
     private final Stage stage;
     private final Table mainTable;
-    //private final Table desplegable;
     private final Window window;
     private final Skin skin;
     private final FondoMenu fondo;
@@ -46,25 +45,25 @@ public class Menu extends BaseScreen{
         skin = mainGame.getSkinUI();
         
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
-	Gdx.input.setInputProcessor(stage);
+	    Gdx.input.setInputProcessor(stage);
         
         fondo = new FondoMenu(mainGame.getFondoMenu());
         stage.addActor(fondo);
 
-	mainTable = new Table();
-	mainTable.setFillParent(true);
+	    mainTable = new Table();
+	    mainTable.setFillParent(true);
         mainTable.left();
         
         //mainTable.setDebug(true); 
-	stage.addActor(mainTable);
+	    stage.addActor(mainTable);
 
         
         botonJugar = new TextButton("Jugar",skin);
         botonJugar.addListener(new ChangeListener() {
         @Override
-	public void changed (ChangeEvent event, Actor actor) {
-		mainGame.setScreen(new Mundo1(mainGame));
-	}
+	    public void changed (ChangeEvent event, Actor actor) {
+		    mainGame.setScreen(new Mundo1(mainGame));
+	    }
         });
                 
         botonOpciones = new TextButton("opciones",skin);
@@ -108,8 +107,8 @@ public class Menu extends BaseScreen{
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	stage.act(Gdx.graphics.getDeltaTime());
-	stage.draw();
+        stage.act(Gdx.graphics.getDeltaTime());
+	    stage.draw();
     }
     
     @Override 

@@ -1,16 +1,22 @@
 package ale.ice.climber;
 
 import ale.ice.climber.screens.gui.guiInMenu.Menu;
+import ale.ice.climber.screens.gui.guiInMenu.progress.Progress;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Main extends Game {
     
     private String skinUI;
-    
     private String mapa1Texture;
     private String jugadorTexture;
     private String bloqueHieloSolido; 
@@ -25,6 +31,10 @@ public class Main extends Game {
     private String mapa3Texture;
     
     private AssetManager manager;
+    private Stage stage;
+    private Table progress;
+    private Progress info;
+
     
     
     public Texture getMapa1Texture(){
@@ -80,6 +90,8 @@ public class Main extends Game {
 
     @Override
     public void create () {
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
+        Gdx.input.setInputProcessor(stage);
         
         mapa1Texture = "textures/mapas/mapa1.png";
         mapa2Texture = "textures/mapas/mapa2.png";
@@ -98,6 +110,7 @@ public class Main extends Game {
         
         manager = new AssetManager();
         manager.load(skinUI,Skin.class);
+        manager.finishLoadingAsset(skinUI);
         manager.load(mapa1Texture,Texture.class);
         manager.load(jugadorTexture,Texture.class);
         manager.load(bloqueHieloSolido,Texture.class);
@@ -110,10 +123,28 @@ public class Main extends Game {
         manager.load(puertaTexture, Texture.class);
         manager.load(mapa2Texture,Texture.class);
         manager.load(mapa3Texture, Texture.class);
-        manager.finishLoading();
-        setScreen(new Menu(this)) ; 
+        info = new Progress(getSkinUI());
+        progress = info.getTable();
+        stage.addActor(progress);
     }
-    
+
+    @Override
+    public void render() {
+        super.render();
+
+        if(manager.update()){
+            setScreen(new Menu(this)) ;
+        }
+        else{
+            Gdx.gl.glClearColor(30/255f, 23/255f, 23/255f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            System.out.println(manager.getProgress());
+            info.setProgress(manager.getProgress());
+            stage.act(Gdx.graphics.getDeltaTime());
+            stage.draw();
+        }
+    }
+
     @Override
     public void dispose(){
         manager.dispose();
