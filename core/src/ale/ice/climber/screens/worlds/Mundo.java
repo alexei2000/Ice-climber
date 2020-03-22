@@ -52,7 +52,7 @@ public abstract class Mundo extends BaseScreen {
     
     public Mundo(Main mainGame) {
         super(mainGame);
-        
+
         cambiarNivel = false;
         moverCamara = false;
         movimientoDeCamara = false;
@@ -125,7 +125,7 @@ public abstract class Mundo extends BaseScreen {
     }
  
     public void seCayoJugador(){
-       if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2)/64){
+       if(jugador.getBody().getPosition().y < (stage.getCamera().position.y - Gdx.graphics.getHeight()/2f)/64f){
            reiniciarNivel();
         }
     }
@@ -133,7 +133,7 @@ public abstract class Mundo extends BaseScreen {
     public void murioElJugador(){
         seCayoJugador();
         if(hayQueReiniciar){
-            stage.getCamera().position.y = Gdx.graphics.getHeight()/2;
+            stage.getCamera().position.y = Gdx.graphics.getHeight()/2f;
             System.out.println(jugador.getNumeroDeVidas());
             jugador.perderUnaVida();
             if(jugador.getNumeroDeVidas() != 0){

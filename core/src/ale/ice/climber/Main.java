@@ -1,24 +1,25 @@
 package ale.ice.climber;
 
-import ale.ice.climber.screens.gui.guiInMenu.Menu;
-import ale.ice.climber.screens.gui.guiInMenu.progress.Progress;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import javax.swing.*;
+import ale.ice.climber.screens.gui.progress.Progress;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 
 public class Main extends Game {
-    
+
+
+    //audio
+    private String musicMenu;
+    private String musicGame;
+
+    // skins
     private String skinUI;
+
+    //textures
     private String mapa1Texture;
     private String jugadorTexture;
     private String bloqueHieloSolido; 
@@ -38,6 +39,19 @@ public class Main extends Game {
     public AssetManager getManager(){
         return manager;
     }
+
+    public Music getMusicMenu(){
+        return manager.get(musicMenu);
+    }
+
+    public Music getMusicGame(){
+        return manager.get(musicGame);
+    }
+
+    public Skin getSkinUI(){
+        return manager.get(skinUI);
+    }
+
     public Texture getMapa1Texture(){
         return manager.get(mapa1Texture);
     }
@@ -57,6 +71,7 @@ public class Main extends Game {
     public Texture getYetiTexture(){
         return manager.get(yetiTexture);
     }
+
     public Texture getOsoTexture(){
         return manager.get(osoTexture);
     }
@@ -68,6 +83,7 @@ public class Main extends Game {
     public Texture getBloqueHieloSolidoTexture(){
         return manager.get(bloqueHieloSolido);
     }
+
     public Texture getBloqueHieloRoto(){
         return manager.get(bloqueHieloRoto);
     }
@@ -79,11 +95,7 @@ public class Main extends Game {
     public Texture getCabezaDePersonaje(){
         return manager.get(cabezaDePersonaje);
     }
-    
-    public Skin getSkinUI(){
-        return manager.get(skinUI);
-    }
-    
+
     public Texture getFondoMenu(){
         return manager.get(fondoMenu);
     }
@@ -105,22 +117,30 @@ public class Main extends Game {
         skinUI = "skin/skin/freezing-ui.json";
         fondoMenu = "textures/fondoMenu.png";
         puertaTexture = "textures/mapas/puerta.png";
-        
+        musicMenu = "sonidos/music/Caketown 1.mp3";
+        musicGame = "sonidos/music/TownTheme.mp3";
         
         manager = new AssetManager();
+        //skin
         manager.load(skinUI,Skin.class);
         manager.finishLoadingAsset(skinUI);
-        manager.load(mapa1Texture,Texture.class);
-        manager.load(jugadorTexture,Texture.class);
-        manager.load(bloqueHieloSolido,Texture.class);
-        manager.load(bloqueHieloRoto,Texture.class);
-        manager.load(nieveBorde,Texture.class);
+
+        //sonidos
+        manager.load(musicMenu, Music.class);
+        manager.load(musicGame, Music.class);
+
+        //textures
+        manager.load(mapa1Texture, Texture.class);
+        manager.load(jugadorTexture, Texture.class);
+        manager.load(bloqueHieloSolido, Texture.class);
+        manager.load(bloqueHieloRoto, Texture.class);
+        manager.load(nieveBorde, Texture.class);
         manager.load(yetiTexture, Texture.class);
         manager.load(cabezaDePersonaje, Texture.class);
         manager.load(osoTexture, Texture.class);
         manager.load(fondoMenu, Texture.class);
         manager.load(puertaTexture, Texture.class);
-        manager.load(mapa2Texture,Texture.class);
+        manager.load(mapa2Texture, Texture.class);
         manager.load(mapa3Texture, Texture.class);
         setScreen(new Progress(this));
     }

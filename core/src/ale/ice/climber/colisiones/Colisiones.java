@@ -69,6 +69,7 @@ public class Colisiones implements ContactListener {
                      if(body.getPosition().equals(mundo.getBloques().listaDeBloques.get(i).getBody().getPosition())){
                          mundo.getBloques().listaDeBloques.get(i).remove();
                          mundo.getBloques().listaDeBloques.get(i).destruir();
+                         break;
                      }
                  }
             }
@@ -76,8 +77,9 @@ public class Colisiones implements ContactListener {
                Body body = contact.getFixtureB().getBody();
                  for(int i=0; i<mundo.getBloques().listaDeBloques.size();i++){
                      if(body.getPosition().equals(mundo.getBloques().listaDeBloques.get(i).getBody().getPosition())){
-                        mundo.getBloques().listaDeBloques.get(i).remove();
+                         mundo.getBloques().listaDeBloques.get(i).remove();
                          mundo.getBloques().listaDeBloques.get(i).destruir();
+                         break;
                      }
                  }
             }
