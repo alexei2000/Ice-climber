@@ -42,7 +42,7 @@ public class Mundo3 extends Mundo{
         
         map = new Mapa(world,textureMap);
         nieve = new Nieve(bordeNieve);
-        jugador = new Jugador(world,skinJugador,new Vector2(5f,1f));
+        jugador = new Jugador(world,skinJugador, mainGame, new Vector2(5f,1f));
         
         vidas = new Vidas(jugador,stage.getCamera(),mainGame.getCabezaDePersonaje());
     

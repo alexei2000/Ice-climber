@@ -15,20 +15,23 @@ public class Options  {
     private Menu menu;
     private Table table;
     private Window ventana;
-    private Slider volumen;
+    private Slider volumenMusic;
+    private Slider volumenSfx;
     private CheckBox muteMusic;
     private CheckBox muteSfx;
     private TextButton continuar;
     private TextButton salir;
 
     boolean isMusicMute;
+    boolean isSfxMute;
 
 
-    public Options(Skin skin, Main mainGame, Menu menu) {
+    public Options(Skin skin, Menu menu,  Main mainGame) {
         this.mainGame = mainGame;
         this.skin = skin;
         this.menu = menu;
         isMusicMute = false;
+        isSfxMute = false;
         createWidgets();
         addToWindow();
 
@@ -43,13 +46,19 @@ public class Options  {
         ventana = new Window("Opciones", skin);
         ventana.setMovable(false);
 
-        volumen = new Slider(0, 1, 0.01f, false,skin);
-        volumen.setValue(0.5f);
-        volumen.addListener(volumenHandler());
+        volumenMusic = new Slider(0, 1, 0.01f, false,skin);
+        volumenMusic.setValue(0.5f);
+        volumenMusic.addListener(volumenMusicHandler());
+
+        volumenSfx = new Slider(0, 1, 0.01f, false,skin);
+        volumenSfx.setValue(0.5f);
+        volumenSfx.addListener(volumenSfxHandler());
 
         muteMusic = new CheckBox("Mute music",skin);
-        muteMusic.addListener(checkBoxMusicnHandler());
+        muteMusic.addListener(checkBoxMusicHandler());
+
         muteSfx = new CheckBox("Mute sfx",skin);
+        muteMusic.addListener(checkBoxSfxHandler());
 
         continuar = new TextButton("Continuar",skin);
         continuar.getLabel().setFontScale(0.5f);
@@ -68,9 +77,13 @@ public class Options  {
         ventana.row();
         ventana.add(muteSfx).left().pad(10,20, 0, 0);
         ventana.row();
-        ventana.add(new Label("Volumen General",skin, "dark")).colspan(2).pad(30,0, 10, 0);
+        ventana.add(new Label("Musica",skin, "dark")).colspan(2).pad(30,0, 10, 0);
         ventana.row();
-        ventana.add(volumen).pad(10,20,50,20).colspan(2).minWidth(350);
+        ventana.add(volumenMusic).pad(10,20,20,20).colspan(2).minWidth(350);
+        ventana.row();
+        ventana.add(new Label("Sfx",skin, "dark")).colspan(2).pad(30,0, 10, 0);
+        ventana.row();
+        ventana.add(volumenSfx).pad(10,20,50,20).colspan(2).minWidth(350);
         ventana.row();
         ventana.add(continuar).maxHeight(40).maxWidth(80);
         ventana.add(salir).maxHeight(40).maxWidth(80);
@@ -85,7 +98,7 @@ public class Options  {
             public void changed (ChangeEvent event, Actor actor) {
                 table.setVisible(false);
                 menu.setVentanaAbierta(false);
-
+                mainGame.getClickSound().play(mainGame.getSfxVolumen());
             }
         };
     }
@@ -99,20 +112,32 @@ public class Options  {
             }
         };
     }
-    private ChangeListener volumenHandler(){
+    private ChangeListener volumenMusicHandler(){
 
         return new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
                 if(!isMusicMute){
-                    mainGame.getMusicGame().setVolume(volumen.getValue());
-                    mainGame.getMusicMenu().setVolume(volumen.getValue());
+                    mainGame.getMusicGame().setVolume(volumenMusic.getValue());
+                    mainGame.getMusicMenu().setVolume(volumenMusic.getValue());
                 }
             }
         };
     }
 
-    private ChangeListener checkBoxMusicnHandler(){
+    private ChangeListener volumenSfxHandler(){
+
+        return new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                if(!isSfxMute){
+                    mainGame.setSfxVolumen(volumenSfx.getValue());
+                }
+            }
+        };
+    }
+
+    private ChangeListener checkBoxMusicHandler(){
 
         return new ChangeListener() {
             @Override
@@ -120,9 +145,28 @@ public class Options  {
                 if(muteMusic.isChecked()){
                     mainGame.getMusicGame().setVolume(0);
                     mainGame.getMusicMenu().setVolume(0);
+                    isMusicMute = true;
                 }else{
-                    mainGame.getMusicGame().setVolume(volumen.getValue());
-                    mainGame.getMusicMenu().setVolume(volumen.getValue());
+                    mainGame.getMusicGame().setVolume(volumenMusic.getValue());
+                    mainGame.getMusicMenu().setVolume(volumenMusic.getValue());
+                    isMusicMute = false;
+                }
+
+            }
+        };
+    }
+
+    private ChangeListener checkBoxSfxHandler(){
+
+        return new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                if(muteSfx.isChecked()){
+                    mainGame.setSfxVolumen(0);
+                    isSfxMute = true;
+                }else{
+                    mainGame.setSfxVolumen(volumenSfx.getValue());
+                    isSfxMute = false;
                 }
 
             }

@@ -15,6 +15,7 @@ import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
 import ale.ice.climber.screens.gui.guiInGame.Vidas;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -65,7 +66,7 @@ public abstract class Mundo extends BaseScreen {
         
         boxDebug = new Box2DDebugRenderer();
         
-        world.setContactListener(new Colisiones(this)); 
+        world.setContactListener(new Colisiones(this, mainGame));
      
     }
     
@@ -133,6 +134,7 @@ public abstract class Mundo extends BaseScreen {
     public void murioElJugador(){
         seCayoJugador();
         if(hayQueReiniciar){
+            mainGame.getDeathSound().play(mainGame.getSfxVolumen());
             stage.getCamera().position.y = Gdx.graphics.getHeight()/2f;
             System.out.println(jugador.getNumeroDeVidas());
             jugador.perderUnaVida();
@@ -186,31 +188,36 @@ public abstract class Mundo extends BaseScreen {
             stage.addActor(enemigos.listaDeEnemigos.get(i));
         }
     }
-    
+    public void setCambiarNivel(boolean cambiarNivel) {
+        this.cambiarNivel = cambiarNivel;
+    }
+
+    public void deleteItems(){
+
+        puertaInicio.detach();
+        puertaInicio.remove();
+
+        puertaFinal.detach();
+        puertaFinal.remove();
+
+        map.detach();
+        map.remove();
+
+        jugador.detach();
+        jugador.remove();
+
+        nieve.remove();
+        vidas.remove();
+
+        bloques.disposeList();
+        enemigos.disposeList();
+
+    }
+
+
     public abstract void createItems();
     
     public abstract void siguienteNivel();
-    
-    public void deleteItems(){
-        
-        puertaInicio.detach();
-        puertaInicio.remove();
-        
-        puertaFinal.detach();
-        puertaFinal.remove(); 
-        
-        map.detach();
-        map.remove();
-        
-        jugador.detach();
-        jugador.remove();
-        
-        nieve.remove();
-        vidas.remove();
-        
-        bloques.disposeList();
-        enemigos.disposeList();
-    }
     
     public void setMoverCamara(boolean b){
         this.moverCamara = b;
@@ -226,10 +233,6 @@ public abstract class Mundo extends BaseScreen {
     
     public GeneradorDeBloques getBloques(){
         return this.bloques;
-    }
-    
-    public void setCambiarNivel(boolean cambiarNivel) {
-        this.cambiarNivel = cambiarNivel;
     }
     
     

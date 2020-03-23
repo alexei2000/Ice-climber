@@ -5,6 +5,7 @@
  */
 package ale.ice.climber.colisiones;
 
+import ale.ice.climber.Main;
 import ale.ice.climber.screens.worlds.Mundo;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -18,9 +19,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
  */
 public class Colisiones implements ContactListener {
     private final Mundo mundo;
+    private final Main mainGame;
     
-    public Colisiones(Mundo mundo){
+    public Colisiones(Mundo mundo, Main mainGame){
         this.mundo = mundo;
+        this.mainGame = mainGame;
     }
 
     private boolean hanColisionado(Contact contact, Object a,Object b){
@@ -63,6 +66,7 @@ public class Colisiones implements ContactListener {
         } 
 
         if(hanColisionado(contact,"cabeza","bloqueRoto")){
+
             if(contact.getFixtureA().getUserData().equals("bloqueRoto")){
                  Body body = contact.getFixtureA().getBody();
                  for(int i=0; i<mundo.getBloques().listaDeBloques.size();i++){
@@ -83,6 +87,7 @@ public class Colisiones implements ContactListener {
                      }
                  }
             }
+            mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
         }
         if(hanColisionado(contact,"pies","paredDerecha")){
             mundo.getJugador().setCambiarEntidadPosicion(1);

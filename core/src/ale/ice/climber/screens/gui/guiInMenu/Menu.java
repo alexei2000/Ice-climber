@@ -105,11 +105,11 @@ public class Menu extends BaseScreen{
 
         fondo = new FondoMenu(mainGame.getFondoMenu());
 
-        Options ventanaOpciones = new Options(skin, mainGame, this);
+        Options ventanaOpciones = new Options(skin,this ,mainGame);
         opciones = ventanaOpciones.getTable();
         opciones.setVisible(false);
 
-        Puntuacion ventanaPuntuacion = new Puntuacion(skin, this);
+        Puntuacion ventanaPuntuacion = new Puntuacion(skin, this, mainGame);
         puntuaciones = ventanaPuntuacion.getTable();
         puntuaciones.setVisible(false);
 
@@ -164,11 +164,11 @@ public class Menu extends BaseScreen{
     }
 
     private ChangeListener botonJugarHandler(){
-
         return new ChangeListener() {
                 @Override
                 public void changed (ChangeEvent event, Actor actor) {
                     mainGame.setScreen(new Mundo1(mainGame));
+                    mainGame.getPlaySound().play(mainGame.getSfxVolumen());
                 }
             };
     }
@@ -181,6 +181,7 @@ public class Menu extends BaseScreen{
                 if(!ventanaAbierta){
                     opciones.setVisible(true);
                     ventanaAbierta = true;
+                    mainGame.getClickSound().play(mainGame.getSfxVolumen());
                 }
             }
         };
@@ -194,6 +195,7 @@ public class Menu extends BaseScreen{
                 if(!ventanaAbierta){
                     puntuaciones.setVisible(true);
                     ventanaAbierta = true;
+                    mainGame.getClickSound().play(mainGame.getSfxVolumen());
                 }
             }
         };

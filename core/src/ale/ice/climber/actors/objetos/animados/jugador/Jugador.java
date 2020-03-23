@@ -5,9 +5,11 @@
  */
 package ale.ice.climber.actors.objetos.animados.jugador;
 
+import ale.ice.climber.Main;
 import ale.ice.climber.actors.objetos.animados.ObjetoAnimado;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,10 +27,13 @@ public class Jugador extends ObjetoAnimado {
     private boolean estaEnElSuelo;
     private int estadoDeAnimacion;
     private static int numeroDeVidas = 3;
+    private Main mainGame;
     
     
-    public Jugador(World world, Texture texture,Vector2 position) {
+    public Jugador(World world, Texture texture, Main mainGame, Vector2 position) {
         super(world, texture, 0.640625f,1.625f,position);
+
+        this.mainGame = mainGame;
         
         estaEnElSuelo=true;
         numeroDeAnimaciones=3;
@@ -182,6 +187,7 @@ public class Jugador extends ObjetoAnimado {
             setAnimation(2);
             body.applyLinearImpulse(new Vector2(0,40),body.getPosition(),true);
             estaEnElSuelo=false;
+            mainGame.getJumpSound().play(mainGame.getSfxVolumen()*0.7f);
         }    
     }
     

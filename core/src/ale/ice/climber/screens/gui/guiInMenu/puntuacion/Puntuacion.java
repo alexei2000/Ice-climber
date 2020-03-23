@@ -1,6 +1,7 @@
 package ale.ice.climber.screens.gui.guiInMenu.puntuacion;
 
 
+import ale.ice.climber.Main;
 import ale.ice.climber.screens.gui.guiInMenu.Menu;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,15 +13,17 @@ import java.util.ArrayList;
 public class Puntuacion {
     private Skin skin;
     private Menu menu;
+    private Main mainGame;
     private Table table;
     private Window ventana;
     private List <String> lista;
     private TextButton continuar;
 
 
-    public Puntuacion(Skin skin, Menu menu) {
+    public Puntuacion(Skin skin, Menu menu, Main mainGame) {
         this.skin = skin;
         this.menu = menu;
+        this.mainGame = mainGame;
         createWidgets();
         addToWindow();
 
@@ -73,6 +76,7 @@ public class Puntuacion {
             public void changed(ChangeEvent event, Actor actor) {
                 table.setVisible(false);
                 menu.setVentanaAbierta(false);
+                mainGame.getClickSound().play(mainGame.getSfxVolumen());
             }
         };
     }

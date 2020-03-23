@@ -5,6 +5,7 @@ import ale.ice.climber.screens.gui.progress.Progress;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -12,9 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class Main extends Game {
 
 
-    //audio
+    //music
     private String musicMenu;
     private String musicGame;
+
+    //sfx
+    private String jumpSound;
+    private String breakSound;
+    private String clickSound;
+    private String playSound;
+    private String deathSound;
 
     // skins
     private String skinUI;
@@ -35,9 +43,31 @@ public class Main extends Game {
     
     private AssetManager manager;
 
+    private float sfxVolumen;
+
     
     public AssetManager getManager(){
         return manager;
+    }
+
+    public Sound getJumpSound(){
+        return manager.get(jumpSound);
+    }
+
+    public Sound getClickSound(){
+        return manager.get(clickSound);
+    }
+
+    public Sound getBreakSound(){
+        return manager.get(breakSound);
+    }
+
+    public Sound getPlaySound(){
+        return manager.get(playSound);
+    }
+
+    public Sound getDeathSound(){
+        return manager.get(deathSound);
     }
 
     public Music getMusicMenu(){
@@ -99,11 +129,15 @@ public class Main extends Game {
     public Texture getFondoMenu(){
         return manager.get(fondoMenu);
     }
+
     
 
     @Override
     public void create () {
 
+        sfxVolumen = 0.5f;
+
+        //rutas
         mapa1Texture = "textures/mapas/mapa1.png";
         mapa2Texture = "textures/mapas/mapa2.png";
         mapa3Texture = "textures/mapas/mapa3.png";
@@ -119,15 +153,29 @@ public class Main extends Game {
         puertaTexture = "textures/mapas/puerta.png";
         musicMenu = "sonidos/music/Caketown 1.mp3";
         musicGame = "sonidos/music/TownTheme.mp3";
+        breakSound = "sonidos/sfx/break.mp3";
+        clickSound = "sonidos/sfx/click.wav";
+        jumpSound = "sonidos/sfx/jump.mp3";
+        playSound = "sonidos/sfx/play.wav";
+        deathSound = "sonidos/sfx/death.wav";
         
         manager = new AssetManager();
+
         //skin
         manager.load(skinUI,Skin.class);
         manager.finishLoadingAsset(skinUI);
 
-        //sonidos
+        //music
         manager.load(musicMenu, Music.class);
         manager.load(musicGame, Music.class);
+
+        //sfx
+        manager.load(breakSound,Sound.class);
+        manager.load(jumpSound,Sound.class);
+        manager.load(clickSound, Sound.class);
+        manager.load(playSound, Sound.class);
+        manager.load(deathSound, Sound.class);
+
 
         //textures
         manager.load(mapa1Texture, Texture.class);
@@ -142,6 +190,7 @@ public class Main extends Game {
         manager.load(puertaTexture, Texture.class);
         manager.load(mapa2Texture, Texture.class);
         manager.load(mapa3Texture, Texture.class);
+
         setScreen(new Progress(this));
     }
 
@@ -150,5 +199,12 @@ public class Main extends Game {
     public void dispose(){
         manager.dispose();
     }
-    
+
+    public float getSfxVolumen(){
+        return sfxVolumen;
+    }
+
+    public void setSfxVolumen(float sfxVolumen) {
+        this.sfxVolumen = sfxVolumen;
+    }
 }
