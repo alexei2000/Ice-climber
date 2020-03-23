@@ -26,9 +26,9 @@ public class Options  {
     boolean isSfxMute;
 
 
-    public Options(Skin skin, Menu menu,  Main mainGame) {
+    public Options(Menu menu,  Main mainGame) {
         this.mainGame = mainGame;
-        this.skin = skin;
+        this.skin = mainGame.getSkinUI();
         this.menu = menu;
         isMusicMute = false;
         isSfxMute = false;

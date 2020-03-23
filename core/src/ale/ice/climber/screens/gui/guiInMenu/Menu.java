@@ -7,6 +7,7 @@ package ale.ice.climber.screens.gui.guiInMenu;
 
 import ale.ice.climber.Main;
 import ale.ice.climber.screens.BaseScreen;
+import ale.ice.climber.screens.gui.guiInMenu.dialogo.Dialogo;
 import ale.ice.climber.screens.gui.guiInMenu.fondo.FondoMenu;
 import ale.ice.climber.screens.gui.guiInMenu.options.Options;
 import ale.ice.climber.screens.gui.guiInMenu.puntuacion.Puntuacion;
@@ -33,6 +34,8 @@ public class Menu extends BaseScreen{
     private Window panelJugador;
     private Table opciones;
     private Table puntuaciones;
+    private Table ayuda;
+    private Table info;
 
     private FondoMenu fondo;
     private TextButton botonOpciones;
@@ -64,6 +67,8 @@ public class Menu extends BaseScreen{
         stage.addActor(mainTable);
         stage.addActor(opciones);
         stage.addActor(puntuaciones);
+        stage.addActor(ayuda);
+        stage.addActor(info);
 
         mainGame.getMusicGame().setLooping(true);
         mainGame.getMusicGame().setVolume(0.5f);
@@ -105,32 +110,45 @@ public class Menu extends BaseScreen{
 
         fondo = new FondoMenu(mainGame.getFondoMenu());
 
-        Options ventanaOpciones = new Options(skin,this ,mainGame);
-        opciones = ventanaOpciones.getTable();
-        opciones.setVisible(false);
-
-        Puntuacion ventanaPuntuacion = new Puntuacion(skin, this, mainGame);
-        puntuaciones = ventanaPuntuacion.getTable();
-        puntuaciones.setVisible(false);
-
         mainTable = new Table();
         mainTable.setFillParent(true);
         mainTable.left();
 
+        //ventanas
+        Options ventanaOpciones = new Options(this ,mainGame);
+        opciones = ventanaOpciones.getTable();
+        opciones.setVisible(false);
 
+        Puntuacion ventanaPuntuacion = new Puntuacion(this, mainGame);
+        puntuaciones = ventanaPuntuacion.getTable();
+        puntuaciones.setVisible(false);
+
+        Dialogo ventanaAyuda = new Dialogo(this, mainGame, "Ayuda","sfjsadnfjasdfsdfhsajdfjhasdf\nasdfasdfsfd");
+        ayuda = ventanaAyuda.getTable();
+        ayuda.setVisible(false);
+
+        Dialogo ventanaInfo = new Dialogo(this, mainGame,"Info" ,"sfjsadnfjasdfsdfhsajdfjhasdf\nasdfasdfsfd");
+        info = ventanaInfo.getTable();
+        info.setVisible(false);
+
+
+        //botones
         botonJugar = new TextButton("Jugar",skin);
         botonOpciones = new TextButton("opciones",skin);
         botonPuntuacion = new TextButton("Puntuacion",skin);
         botonInfo = new TextButton("Info",skin);
         botonAyuda = new TextButton("ayuda",skin);
 
+        botonJugar.addListener(botonJugarHandler());
+        botonOpciones.addListener(botonOpcionHandler());
+        botonPuntuacion.addListener(botonPuntuacionHandler());
+        botonAyuda.addListener(botonAyudaHandler());
+        botonInfo.addListener(botonInfoHandler());
+
         botonInfo.getLabel().setFontScale(0.5f);
         botonAyuda.getLabel().setFontScale(0.5f);
 
-        botonJugar.addListener(botonJugarHandler());
-        botonOpciones.addListener(botonOpcionHandler());
-        botonPuntuacion.addListener(botonPuntuacionesHandler());
-
+        //panel nombre del jugador
         panelJugador = new Window("",skin);
         panelJugador.setPosition(500, 300);
         panelJugador.setMovable(false);
@@ -187,11 +205,11 @@ public class Menu extends BaseScreen{
         };
     }
 
-    private ChangeListener botonPuntuacionesHandler(){
+    private ChangeListener botonPuntuacionHandler(){
 
         return new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 if(!ventanaAbierta){
                     puntuaciones.setVisible(true);
                     ventanaAbierta = true;
@@ -200,6 +218,34 @@ public class Menu extends BaseScreen{
             }
         };
     }
+    private ChangeListener botonAyudaHandler(){
+
+        return new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(!ventanaAbierta){
+                    ayuda.setVisible(true);
+                    ventanaAbierta = true;
+                    mainGame.getClickSound().play(mainGame.getSfxVolumen());
+                }
+            }
+        };
+    }
+
+    private ChangeListener botonInfoHandler(){
+
+        return new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(!ventanaAbierta){
+                    info.setVisible(true);
+                    ventanaAbierta = true;
+                    mainGame.getClickSound().play(mainGame.getSfxVolumen());
+                }
+            }
+        };
+    }
+
 
     public void setVentanaAbierta(boolean b){
         ventanaAbierta = b;

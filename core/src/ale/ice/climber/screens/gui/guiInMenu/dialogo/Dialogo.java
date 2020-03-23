@@ -1,4 +1,4 @@
-package ale.ice.climber.screens.gui.guiInMenu.puntuacion;
+package ale.ice.climber.screens.gui.guiInMenu.dialogo;
 
 
 import ale.ice.climber.Main;
@@ -7,23 +7,27 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import java.util.ArrayList;
 
 
-public class Puntuacion {
+public class Dialogo {
     private Skin skin;
     private Menu menu;
     private Main mainGame;
     private Table table;
     private Window ventana;
-    private List <String> lista;
-    private TextButton continuar;
+    private TextButton aceptar;
+    private Label content;
+    String contentStr;
+    String title;
 
 
-    public Puntuacion(Menu menu, Main mainGame) {
+    public Dialogo(Menu menu, Main mainGame,String title ,String contentStr) {
         this.skin = mainGame.getSkinUI();
         this.menu = menu;
         this.mainGame = mainGame;
+        this.contentStr = contentStr;
+        this.title = title;
+
         createWidgets();
         addToWindow();
 
@@ -36,35 +40,22 @@ public class Puntuacion {
         table.center();
 
 
-        ventana = new Window("Puntuacion", skin);
+        ventana = new Window(title, skin);
         ventana.setMovable(false);
-        lista = new List<>(skin);
 
-        String[] palabras = new String[10];
-        palabras[0] = "hola";
-        palabras[1] = "hola";
-        palabras[2] = "hola";
-        palabras[3] = "hola";
-        palabras[4] = "hola";
-        palabras[5] = "hola";
-        palabras[6] = "hola";
-        palabras[7] = "hola";
-        palabras[8] = "hola";
-        palabras[9] = "hola";
-        lista.setItems(palabras);
+        content = new Label(contentStr,skin, "dark");
 
-
-        continuar = new TextButton("Continuar", skin);
-        continuar.getLabel().setFontScale(0.5f);
-        continuar.addListener(botonContinuarHandler());
+        aceptar = new TextButton("Continuar", skin);
+        aceptar.getLabel().setFontScale(0.5f);
+        aceptar.addListener(botonContinuarHandler());
 
 
     }
 
     public void addToWindow() {
-        ventana.add(lista).minWidth(200);
+        ventana.add(content);
         ventana.row();
-        ventana.add(continuar).maxHeight(40).maxWidth(80);
+        ventana.add(aceptar).maxHeight(40).maxWidth(80);
 
         table.add(ventana);
     }
