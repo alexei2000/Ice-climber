@@ -185,8 +185,10 @@ public class Menu extends BaseScreen{
         return new ChangeListener() {
                 @Override
                 public void changed (ChangeEvent event, Actor actor) {
-                    mainGame.setScreen(new Mundo1(mainGame));
+                if(!nombreCaja.getText().equals("")){
+                    mainGame.setScreen(new Mundo1(mainGame, nombreCaja.getText()));
                     mainGame.getPlaySound().play(mainGame.getSfxVolumen());
+                }
                 }
             };
     }

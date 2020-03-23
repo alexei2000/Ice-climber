@@ -1,6 +1,5 @@
 package ale.ice.climber.actors.objetos.frutas;
 
-import ale.ice.climber.actors.objetos.plataformas.bloques.Bloque;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

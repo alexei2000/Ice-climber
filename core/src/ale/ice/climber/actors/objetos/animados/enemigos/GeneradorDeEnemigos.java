@@ -5,8 +5,6 @@
  */
 package ale.ice.climber.actors.objetos.animados.enemigos;
 
-import ale.ice.climber.actors.objetos.plataformas.bloques.BloqueRoto;
-import ale.ice.climber.actors.objetos.plataformas.bloques.BloqueSolido;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -67,9 +65,9 @@ public class GeneradorDeEnemigos {
     }
     
     public void disposeList(){
-        for(int i=0; i<listaDeEnemigos.size();i++){
-            listaDeEnemigos.get(i).detach();
-            listaDeEnemigos.get(i).remove();
+        for (Enemigo listaDeEnemigo : listaDeEnemigos) {
+            listaDeEnemigo.detach();
+            listaDeEnemigo.remove();
         }
     }
 

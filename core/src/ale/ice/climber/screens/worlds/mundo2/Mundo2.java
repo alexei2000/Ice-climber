@@ -23,8 +23,8 @@ import ale.ice.climber.screens.worlds.mundo3.Mundo3;
  */
 public class Mundo2 extends Mundo{
     
-    public Mundo2(Main mainGame) {
-        super(mainGame);
+    public Mundo2(Main mainGame, String nombre) {
+        super(mainGame, nombre);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Mundo2 extends Mundo{
         
         map = new Mapa(world,textureMap);
         nieve = new Nieve(bordeNieve);
-        jugador = new Jugador(world,skinJugador, mainGame, new Vector2(5f,1f));
+        jugador = new Jugador(world,skinJugador, mainGame, new Vector2(5f,1f), nombre);
         
         vidas = new Vidas(jugador,stage.getCamera(),mainGame.getCabezaDePersonaje());
     
@@ -57,11 +57,15 @@ public class Mundo2 extends Mundo{
         recorrerFrutas();;
         recorrerBloques();
         stage.addActor(vidas);
+        stage.addActor(tiempo);
     }
 
     @Override
     public void siguienteNivel() {
-        mainGame.setScreen(new Mundo3(mainGame));
+        Jugador.sumarTotalPuntos(Jugador.getPuntosPorMundo()); //frutas
+        Jugador.sumarTotalPuntos(100000/tiempo.getValue()); //tiempo
+        Jugador.reiniciarPuntosPorMundo();
+        mainGame.setScreen(new Mundo3(mainGame, nombre));
     }
     
 }

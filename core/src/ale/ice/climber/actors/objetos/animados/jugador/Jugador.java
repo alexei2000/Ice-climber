@@ -9,7 +9,6 @@ import ale.ice.climber.Main;
 import ale.ice.climber.actors.objetos.animados.ObjetoAnimado;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,15 +22,24 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author alexe
  */
 public class Jugador extends ObjetoAnimado {
-    
+
+    //datos
+    private String nombre;
+    private static int puntosPorMundo=0;
+    private static int totalPuntos=0;
+
+
     private boolean estaEnElSuelo;
     private int estadoDeAnimacion;
     private static int numeroDeVidas = 3;
     private Main mainGame;
     
     
-    public Jugador(World world, Texture texture, Main mainGame, Vector2 position) {
+    public Jugador(World world, Texture texture, Main mainGame, Vector2 position, String nombre) {
         super(world, texture, 0.640625f,1.625f,position);
+        this.nombre = nombre;
+
+
 
         this.mainGame = mainGame;
         
@@ -42,7 +50,9 @@ public class Jugador extends ObjetoAnimado {
         
         TextureRegion skin = new TextureRegion(texture,560,312);
         frames = skin.split(70, 104);//falta
+
         animation = new Animation(0.08f,frames[0]);
+
         
     }
     
@@ -189,6 +199,33 @@ public class Jugador extends ObjetoAnimado {
             estaEnElSuelo=false;
             mainGame.getJumpSound().play(mainGame.getSfxVolumen()*0.7f);
         }    
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public static int getPuntosPorMundo() {
+        return puntosPorMundo;
+    }
+
+    public static void sumarPuntosPorMundo(int puntosPorMundo) {
+        Jugador.puntosPorMundo += puntosPorMundo;
+    }
+
+    public static int getTotalPuntos() {
+        return totalPuntos;
+    }
+
+    public static void sumarTotalPuntos(int totalPuntos) {
+        Jugador.totalPuntos += totalPuntos;
+    }
+    public static void reiniciarPuntosPorMundo(){
+        Jugador.puntosPorMundo = 0;
     }
     
     public void resetNumeroDeVidas(){

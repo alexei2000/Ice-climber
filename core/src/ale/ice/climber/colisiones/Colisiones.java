@@ -6,6 +6,7 @@
 package ale.ice.climber.colisiones;
 
 import ale.ice.climber.Main;
+import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.screens.worlds.Mundo;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -91,6 +92,7 @@ public class Colisiones implements ContactListener {
                 }
             }
             mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
+            Jugador.sumarPuntosPorMundo(50);
         }
     }
 

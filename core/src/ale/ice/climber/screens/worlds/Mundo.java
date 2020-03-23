@@ -14,6 +14,7 @@ import ale.ice.climber.actors.objetos.puerta.Puerta;
 import ale.ice.climber.actors.objetos.animados.enemigos.GeneradorDeEnemigos;
 import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
+import ale.ice.climber.screens.gui.guiInGame.Tiempo;
 import ale.ice.climber.screens.gui.guiInGame.Vidas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,35 +27,43 @@ import ale.ice.climber.lights.Sun;
 import ale.ice.climber.screens.BaseScreen;
 import ale.ice.climber.screens.gui.guiInMenu.Menu;
 
+
 /**
  *
  * @author alexe
  */
 public abstract class Mundo extends BaseScreen {
-    
-    protected Puerta puertaInicio;
-    protected Puerta puertaFinal;
-    protected boolean cambiarNivel;
-    protected Jugador jugador;
-    protected Mapa map;
-    protected Nieve nieve;
+
     protected final World world;
     protected final Stage stage;
     protected final Sun sun;
+
+    protected Puerta puertaInicio;
+    protected Puerta puertaFinal;
+    protected Jugador jugador;
+    protected Mapa map;
+    protected Nieve nieve;
     protected GeneradorDeBloques bloques;
     protected GeneradorDeEnemigos enemigos;
     protected GeneradorDeFrutas frutas;
     protected Vidas vidas;
+
+    protected int camaraNivel;
+    protected boolean cambiarNivel;
     protected boolean moverCamara;
     protected boolean movimientoDeCamara;
-    protected int camaraNivel;
     protected boolean hayQueReiniciar;
     protected boolean hayQueDestruirFruta;
+
+    protected Tiempo tiempo;
+    protected String nombre;
     Box2DDebugRenderer boxDebug;
     
     
-    public Mundo(Main mainGame) {
+    public Mundo(Main mainGame, String nombre) {
         super(mainGame);
+
+        this.nombre = nombre;
 
         cambiarNivel = false;
         moverCamara = false;
@@ -65,6 +74,8 @@ public abstract class Mundo extends BaseScreen {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));      
         world = new World(new Vector2(0,-20), true);
         sun = new Sun(world);
+
+        tiempo = new Tiempo("0", mainGame.getSkinUI(), stage.getCamera());
         
         boxDebug = new Box2DDebugRenderer();
         
@@ -144,8 +155,8 @@ public abstract class Mundo extends BaseScreen {
         if(hayQueReiniciar){
             mainGame.getDeathSound().play(mainGame.getSfxVolumen());
             stage.getCamera().position.y = Gdx.graphics.getHeight()/2f;
-            System.out.println(jugador.getNumeroDeVidas());
             jugador.perderUnaVida();
+            Jugador.reiniciarPuntosPorMundo();
             if(jugador.getNumeroDeVidas() != 0){
                 mainGame.setScreen(mainGame.getScreen());
             }
@@ -156,10 +167,6 @@ public abstract class Mundo extends BaseScreen {
             }
             
         }
-    }
-    
-    public void reiniciarNivel(){
-        hayQueReiniciar = true;
     }
      
     protected void moverCamara(float delta){
@@ -211,9 +218,6 @@ public abstract class Mundo extends BaseScreen {
             stage.addActor(frutas.listaDeFrutas.get(i));
         }
     }
-    public void setCambiarNivel(boolean cambiarNivel) {
-        this.cambiarNivel = cambiarNivel;
-    }
 
     public void deleteItems(){
 
@@ -236,8 +240,17 @@ public abstract class Mundo extends BaseScreen {
         enemigos.disposeList();
         frutas.disposeList();
 
+        tiempo.remove();
+
     }
 
+    public void setCambiarNivel(boolean cambiarNivel) {
+        this.cambiarNivel = cambiarNivel;
+    }
+
+    public void reiniciarNivel(){
+        hayQueReiniciar = true;
+    }
 
     public abstract void createItems();
     
