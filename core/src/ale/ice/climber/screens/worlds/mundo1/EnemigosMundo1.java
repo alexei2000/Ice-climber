@@ -18,12 +18,12 @@ public class EnemigosMundo1 extends GeneradorDeEnemigos {
     public EnemigosMundo1(World world, Texture textureEnemigo1, Texture textureEnemigo2) {
         super(world, textureEnemigo1, textureEnemigo2);
         
-        generarEnemigos(1,0,0);
+        /*generarEnemigos(1,0,0);
         generarEnemigos(2,8,1);
         generarEnemigos(1,1,1);
         generarEnemigos(2,14,1);
         generarEnemigos(1,1,0);
-        generarEnemigos(1,14,0);
+        generarEnemigos(1,14,0);*/
         
     }
     

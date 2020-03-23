@@ -67,18 +67,12 @@ public abstract class GeneradorDeBloques {
             countEspacios=0;
             countNiveles++;
         }
-        if(countNiveles==1){
-            position.x=countEspacios;
-            position.y=countNiveles*alturaNivel;
-        }
-        else{
-            position.x=countEspacios;
-            position.y=countNiveles*alturaNivel;
-        }
-        
+        position.x=countEspacios;
+        position.y=countNiveles*alturaNivel;
+
     }
     
-    protected void IncrementarVariosEspacios(int veces){
+    protected void incrementarVariosEspacios(int veces){
         
         for(int i=0;i<veces; i++){
             incrementarEspacio();
@@ -86,9 +80,9 @@ public abstract class GeneradorDeBloques {
     }
     
     public void disposeList(){
-        for(int i=0; i<listaDeBloques.size();i++){
-            listaDeBloques.get(i).detach();
-            listaDeBloques.get(i).remove();
+        for (Bloque listaDeBloque : listaDeBloques) {
+            listaDeBloque.detach();
+            listaDeBloque.remove();
         }
     }
 

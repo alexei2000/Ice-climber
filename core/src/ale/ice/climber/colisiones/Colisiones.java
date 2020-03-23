@@ -46,7 +46,63 @@ public class Colisiones implements ContactListener {
             mundo.setCambiarNivel(true);
         }
     }
-          
+
+    private void romperBloques(Contact contact){
+        if(hanColisionado(contact,"cabeza","bloqueRoto")){
+
+            Body body;
+
+            if(contact.getFixtureA().getUserData().equals("bloqueRoto")){
+                body = contact.getFixtureA().getBody();
+            }
+            else{
+                body = contact.getFixtureB().getBody();
+            }
+            for(int i=0; i<mundo.getBloques().listaDeBloques.size();i++){
+                if(body.getPosition().equals(mundo.getBloques().listaDeBloques.get(i).getBody().getPosition())){
+                    mundo.getBloques().listaDeBloques.get(i).remove();
+                    mundo.getBloques().listaDeBloques.get(i).destruir();
+                    break;
+                }
+            }
+            mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
+        }
+    }
+
+    private void recogerFruta(Contact contact){
+
+        if(hanColisionado(contact,"pies","fruta")){
+
+            Body body;
+
+            if(contact.getFixtureA().getUserData().equals("fruta")){
+                body = contact.getFixtureA().getBody();
+            }
+            else{
+                body = contact.getFixtureB().getBody();
+            }
+
+            for(int i=0; i<mundo.getFrutas().listaDeFrutas.size();i++){
+                if(body.getPosition().equals(mundo.getFrutas().listaDeFrutas.get(i).getBody().getPosition())){
+                    mundo.getFrutas().listaDeFrutas.get(i).remove();
+                    mundo.getFrutas().listaDeFrutas.get(i).destruir();
+                    mundo.setHayQueDestruirFruta(true);
+                    break;
+                }
+            }
+            mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
+        }
+    }
+
+    private void cambiarDePosicion(Contact contact){
+        if(hanColisionado(contact,"pies","paredDerecha")){
+            mundo.getJugador().setCambiarEntidadPosicion(1);
+        }
+        else if(hanColisionado(contact,"pies", "paredIzquierda")){
+            mundo.getJugador().setCambiarEntidadPosicion(2);
+        }
+    }
+
     @Override
     public void beginContact(Contact contact) {
         
@@ -65,36 +121,11 @@ public class Colisiones implements ContactListener {
             mundo.setMoverCamara(true);
         } 
 
-        if(hanColisionado(contact,"cabeza","bloqueRoto")){
+        romperBloques(contact);
 
-            if(contact.getFixtureA().getUserData().equals("bloqueRoto")){
-                 Body body = contact.getFixtureA().getBody();
-                 for(int i=0; i<mundo.getBloques().listaDeBloques.size();i++){
-                     if(body.getPosition().equals(mundo.getBloques().listaDeBloques.get(i).getBody().getPosition())){
-                         mundo.getBloques().listaDeBloques.get(i).remove();
-                         mundo.getBloques().listaDeBloques.get(i).destruir();
-                         break;
-                     }
-                 }
-            }
-            else{
-               Body body = contact.getFixtureB().getBody();
-                 for(int i=0; i<mundo.getBloques().listaDeBloques.size();i++){
-                     if(body.getPosition().equals(mundo.getBloques().listaDeBloques.get(i).getBody().getPosition())){
-                         mundo.getBloques().listaDeBloques.get(i).remove();
-                         mundo.getBloques().listaDeBloques.get(i).destruir();
-                         break;
-                     }
-                 }
-            }
-            mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
-        }
-        if(hanColisionado(contact,"pies","paredDerecha")){
-            mundo.getJugador().setCambiarEntidadPosicion(1);
-        }
-        else if(hanColisionado(contact,"pies", "paredIzquierda")){
-            mundo.getJugador().setCambiarEntidadPosicion(2);
-        }
+        recogerFruta(contact);
+
+        cambiarDePosicion(contact);
     }
 
     @Override

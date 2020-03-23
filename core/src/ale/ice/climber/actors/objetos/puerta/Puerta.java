@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ale.ice.climber.actors.objetos;
+package ale.ice.climber.actors.objetos.puerta;
 
+import ale.ice.climber.actors.objetos.Objeto;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,19 +19,18 @@ import com.badlogic.gdx.physics.box2d.World;
  *
  * @author alexe
  */
-public class Puerta extends Objeto{
+public class Puerta extends Objeto {
 
     private final TextureRegion texturePuerta;
-    private final Vector2 position;
     private Fixture fixture;
     
     public Puerta(World world,Texture texture, Vector2 position,String name){
         super(world, texture,1.71875f,2);
-        
-        this.position = new Vector2(position.x+width/2f,position.y+height/2f);
+
+        Vector2 position1 = new Vector2(position.x + width / 2f, position.y + height / 2f);
         
         texturePuerta = new TextureRegion(texture,110, 128);
-        createBody(this.position);
+        createBody(position1);
         
         fixture.setUserData(name);
         fixture.setSensor(true);

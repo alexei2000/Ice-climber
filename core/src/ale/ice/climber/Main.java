@@ -40,6 +40,7 @@ public class Main extends Game {
     private String puertaTexture;
     private String mapa2Texture;
     private String mapa3Texture;
+    private String textureFrutas;
     
     private AssetManager manager;
 
@@ -130,6 +131,10 @@ public class Main extends Game {
         return manager.get(fondoMenu);
     }
 
+    public Texture getTextureFrutas(){
+        return manager.get(textureFrutas);
+    }
+
     
 
     @Override
@@ -138,6 +143,9 @@ public class Main extends Game {
         sfxVolumen = 0.5f;
 
         //rutas
+
+        skinUI = "skin/skin/freezing-ui.json";
+
         mapa1Texture = "textures/mapas/mapa1.png";
         mapa2Texture = "textures/mapas/mapa2.png";
         mapa3Texture = "textures/mapas/mapa3.png";
@@ -148,9 +156,10 @@ public class Main extends Game {
         bloqueHieloRoto = "textures/mapas/bloqueRoto.png";
         nieveBorde = "textures/mapas/nieve.png";
         cabezaDePersonaje = "textures/personajes/vidas.png";
-        skinUI = "skin/skin/freezing-ui.json";
         fondoMenu = "textures/fondoMenu.png";
         puertaTexture = "textures/mapas/puerta.png";
+        textureFrutas = "textures/frutas.png";
+
         musicMenu = "sonidos/music/Caketown 1.mp3";
         musicGame = "sonidos/music/TownTheme.mp3";
         breakSound = "sonidos/sfx/break.mp3";
@@ -158,6 +167,7 @@ public class Main extends Game {
         jumpSound = "sonidos/sfx/jump.mp3";
         playSound = "sonidos/sfx/play.wav";
         deathSound = "sonidos/sfx/death.wav";
+
         
         manager = new AssetManager();
 
@@ -178,6 +188,7 @@ public class Main extends Game {
 
 
         //textures
+        manager.load(textureFrutas,Texture.class);
         manager.load(mapa1Texture, Texture.class);
         manager.load(jugadorTexture, Texture.class);
         manager.load(bloqueHieloSolido, Texture.class);

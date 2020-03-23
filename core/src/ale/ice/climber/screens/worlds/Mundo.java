@@ -6,16 +6,16 @@
 package ale.ice.climber.screens.worlds;
 
 import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
+import ale.ice.climber.actors.objetos.frutas.GeneradorDeFrutas;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
 import ale.ice.climber.actors.objetos.mapa.Nieve;
 import ale.ice.climber.Main;
-import ale.ice.climber.actors.objetos.Puerta;
+import ale.ice.climber.actors.objetos.puerta.Puerta;
 import ale.ice.climber.actors.objetos.animados.enemigos.GeneradorDeEnemigos;
 import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
 import ale.ice.climber.screens.gui.guiInGame.Vidas;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -43,11 +43,13 @@ public abstract class Mundo extends BaseScreen {
     protected final Sun sun;
     protected GeneradorDeBloques bloques;
     protected GeneradorDeEnemigos enemigos;
+    protected GeneradorDeFrutas frutas;
     protected Vidas vidas;
     protected boolean moverCamara;
     protected boolean movimientoDeCamara;
     protected int camaraNivel;
     protected boolean hayQueReiniciar;
+    protected boolean hayQueDestruirFruta;
     Box2DDebugRenderer boxDebug;
     
     
@@ -86,6 +88,8 @@ public abstract class Mundo extends BaseScreen {
     
     @Override
     public void render(float delta){
+
+        Gdx.gl.glClearColor(16/255f, 12/255f, 65/255f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         if(cambiarNivel){
@@ -120,8 +124,12 @@ public abstract class Mundo extends BaseScreen {
     }
      
     protected void updateAndDrawActors(){
-        stage.act();
         destruirBloques();
+        if(hayQueDestruirFruta){
+            destruirFrutas();
+            hayQueDestruirFruta = false;
+        }
+        stage.act();
         stage.draw();
     }
  
@@ -176,6 +184,15 @@ public abstract class Mundo extends BaseScreen {
             }
          }
     }
+
+    protected void destruirFrutas(){
+        for(int i=0; i<frutas.listaDeFrutas.size();i++){
+            if(frutas.listaDeFrutas.get(i).getDestruido()){
+                frutas.listaDeFrutas.get(i).detach();
+                frutas.listaDeFrutas.remove(i);
+            }
+        }
+    }
     
     protected void recorrerBloques(){
         for(int i=0; i<bloques.listaDeBloques.size();i++){
@@ -186,6 +203,12 @@ public abstract class Mundo extends BaseScreen {
     protected void recorrerEnemigos(){
         for(int i=0; i<enemigos.listaDeEnemigos.size(); i++){
             stage.addActor(enemigos.listaDeEnemigos.get(i));
+        }
+    }
+
+    protected void recorrerFrutas(){
+        for(int i=0; i<frutas.listaDeFrutas.size(); i++){
+            stage.addActor(frutas.listaDeFrutas.get(i));
         }
     }
     public void setCambiarNivel(boolean cambiarNivel) {
@@ -211,6 +234,7 @@ public abstract class Mundo extends BaseScreen {
 
         bloques.disposeList();
         enemigos.disposeList();
+        frutas.disposeList();
 
     }
 
@@ -233,6 +257,12 @@ public abstract class Mundo extends BaseScreen {
     
     public GeneradorDeBloques getBloques(){
         return this.bloques;
+    }
+
+    public GeneradorDeFrutas getFrutas(){return this.frutas;}
+
+    public void setHayQueDestruirFruta(boolean b){
+        hayQueDestruirFruta = b;
     }
     
     
