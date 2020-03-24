@@ -24,7 +24,7 @@ public class OsoPolarPunketo extends Enemigo{
         
         TextureRegion skin = new TextureRegion(texture,560,118);
         frames = skin.split(70, 118);
-        animation = new Animation(0.08f,frames[0]);
+        animation = new Animation<>(0.08f,frames[0]);
         
         if(position.x>8){      //<---right
             direccion = true;            

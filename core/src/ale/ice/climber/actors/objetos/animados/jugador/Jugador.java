@@ -24,7 +24,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Jugador extends ObjetoAnimado {
 
     //datos
-    private String nombre;
     private static int puntosPorMundo=0;
     private static int totalPuntos=0;
 
@@ -35,11 +34,9 @@ public class Jugador extends ObjetoAnimado {
     private Main mainGame;
     
     
-    public Jugador(World world, Texture texture, Main mainGame, Vector2 position, String nombre) {
+    public Jugador(World world, Texture texture, Main mainGame, Vector2 position)
+    {
         super(world, texture, 0.640625f,1.625f,position);
-        this.nombre = nombre;
-
-
 
         this.mainGame = mainGame;
         
@@ -51,7 +48,7 @@ public class Jugador extends ObjetoAnimado {
         TextureRegion skin = new TextureRegion(texture,560,312);
         frames = skin.split(70, 104);//falta
 
-        animation = new Animation(0.08f,frames[0]);
+        animation = new Animation<>(0.08f,frames[0]);
 
         
     }
@@ -60,13 +57,13 @@ public class Jugador extends ObjetoAnimado {
     public void setAnimation(int state){
         switch (state) {
             case 0:
-                animation = new Animation(velocidadDeAnimacion,frames[0]);
+                animation = new Animation<>(velocidadDeAnimacion,frames[0]);
                 break;
             case 1:
-                animation = new Animation(0.03f,frames[1]);
+                animation = new Animation<>(0.03f,frames[1]);
                 break;
             case 2:
-                animation = new Animation(0.04f,frames[2]);
+                animation = new Animation<>(0.04f,frames[2]);
                 break;
             default:
                 break;
@@ -76,10 +73,10 @@ public class Jugador extends ObjetoAnimado {
     
     @Override
     protected void animationUpdate(){
-        switch(estadoDeAnimacion){
-            case 0: frame = (TextureRegion)animation.getKeyFrame(duracion, true); break;
-            case 1: frame = (TextureRegion)animation.getKeyFrame(duracion, false); break;
-            case 2: frame = (TextureRegion)animation.getKeyFrame(duracion, false);break;
+        if (estadoDeAnimacion == 0) {
+            frame = animation.getKeyFrame(duracion, true);
+        } else {
+            frame = animation.getKeyFrame(duracion, false);
         }
     }
        
@@ -201,13 +198,6 @@ public class Jugador extends ObjetoAnimado {
         }    
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public static int getPuntosPorMundo() {
         return puntosPorMundo;

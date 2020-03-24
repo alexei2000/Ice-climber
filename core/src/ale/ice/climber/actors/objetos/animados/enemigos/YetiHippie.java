@@ -24,7 +24,7 @@ public class YetiHippie extends Enemigo {
         
         TextureRegion skin = new TextureRegion(texture,1200,128);
         frames = skin.split(150, 128);
-        animation = new Animation(0.08f,frames[0]);
+        animation = new Animation<>(0.08f,frames[0]);
         
         if(position.x>8){      //<---right
             direccion = true;            

@@ -31,7 +31,7 @@ public abstract class ObjetoAnimado extends Objeto{
     protected Fixture fixtureHead;
     protected Fixture fixtureBody;
     
-    protected Animation animation;
+    protected Animation<TextureRegion> animation;
     protected float duracion;
     
     public ObjetoAnimado(World world, Texture texture, float width, float height,Vector2 position) {
