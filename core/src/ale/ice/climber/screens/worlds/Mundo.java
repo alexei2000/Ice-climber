@@ -5,6 +5,9 @@
  */
 package ale.ice.climber.screens.worlds;
 
+import ale.ice.climber.Registro.RegistroHandler;
+import ale.ice.climber.Registro.RegistroJugador;
+import ale.ice.climber.Registro.RegistrosJugador;
 import ale.ice.climber.actors.objetos.animados.jugador.Jugador;
 import ale.ice.climber.actors.objetos.frutas.GeneradorDeFrutas;
 import ale.ice.climber.actors.objetos.mapa.Mapa;
@@ -100,7 +103,7 @@ public abstract class Mundo extends BaseScreen {
     @Override
     public void render(float delta){
 
-        Gdx.gl.glClearColor(16/255f, 12/255f, 65/255f,1);
+        Gdx.gl.glClearColor(0/255f, 0/255f, 30/255f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         if(cambiarNivel){
@@ -115,7 +118,7 @@ public abstract class Mundo extends BaseScreen {
         
         updateAndDrawActors();
         
-        boxDebug.render(world,stage.getCamera().combined.cpy().scl(64f) );
+        //boxDebug.render(world,stage.getCamera().combined.cpy().scl(64f) );
         
         updateAndDrawLights();
           
@@ -162,6 +165,7 @@ public abstract class Mundo extends BaseScreen {
             }
             else{
                 jugador.resetNumeroDeVidas();
+                guardarPuntos();
                 mainGame.setScreen(new Menu(mainGame));
                 
             }
@@ -242,6 +246,17 @@ public abstract class Mundo extends BaseScreen {
 
         tiempo.remove();
 
+    }
+
+    public void guardarPuntos(){
+
+        RegistroJugador registro = new RegistroJugador(nombre, Jugador.getTotalPuntos());
+        RegistroHandler registroHandler = new RegistroHandler();
+        registroHandler.getRegistros().addRegistro(registro);
+        registroHandler.guardarRegistro();
+
+        Jugador.reiniciarPuntosPorMundo();
+        Jugador.reiniciarPuntosTotales();
     }
 
     public void setCambiarNivel(boolean cambiarNivel) {

@@ -2,12 +2,14 @@ package ale.ice.climber.screens.gui.guiInMenu.puntuacion;
 
 
 import ale.ice.climber.Main;
+import ale.ice.climber.Registro.RegistroHandler;
 import ale.ice.climber.screens.gui.guiInMenu.Menu;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
 
 
 public class Puntuacion {
@@ -40,19 +42,7 @@ public class Puntuacion {
         ventana.setMovable(false);
         lista = new List<>(skin);
 
-        String[] palabras = new String[10];
-        palabras[0] = "hola";
-        palabras[1] = "hola";
-        palabras[2] = "hola";
-        palabras[3] = "hola";
-        palabras[4] = "hola";
-        palabras[5] = "hola";
-        palabras[6] = "hola";
-        palabras[7] = "hola";
-        palabras[8] = "hola";
-        palabras[9] = "hola";
-        lista.setItems(palabras);
-
+        generateList();
 
         continuar = new TextButton("Continuar", skin);
         continuar.getLabel().setFontScale(0.5f);
@@ -79,6 +69,30 @@ public class Puntuacion {
                 mainGame.getClickSound().play(mainGame.getSfxVolumen());
             }
         };
+    }
+
+    private void generateList(){
+
+        RegistroHandler registroHandler = new RegistroHandler();
+
+        SortedMap<Integer, String> map;
+        map = registroHandler.getMap();
+
+        String[] listaRegistros = new String[map.size()>10 ? 10 : map.size()];
+        int i = 0;
+
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            Integer key = entry.getKey();
+            String value = entry.getValue();
+            listaRegistros[i] = value + ": " + key;
+            i++;
+            if(i==10){
+                break;
+            }
+        }
+
+        lista.setItems(listaRegistros);
+
     }
 
 

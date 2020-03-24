@@ -36,6 +36,7 @@ public class Menu extends BaseScreen{
     private Table puntuaciones;
     private Table ayuda;
     private Table info;
+    private Table alerta;
 
     private FondoMenu fondo;
     private TextButton botonOpciones;
@@ -69,6 +70,7 @@ public class Menu extends BaseScreen{
         stage.addActor(puntuaciones);
         stage.addActor(ayuda);
         stage.addActor(info);
+        stage.addActor(alerta);
 
         mainGame.getMusicGame().setLooping(true);
         mainGame.getMusicGame().setVolume(0.5f);
@@ -131,6 +133,9 @@ public class Menu extends BaseScreen{
         info = ventanaInfo.getTable();
         info.setVisible(false);
 
+        Dialogo alerta = new Dialogo(this, mainGame,"Alerta" ,"Introduzca un nombre\npara continuar");
+        this.alerta = alerta.getTable();
+        this.alerta.setVisible(false);
 
         //botones
         botonJugar = new TextButton("Jugar",skin);
@@ -189,6 +194,9 @@ public class Menu extends BaseScreen{
                     mainGame.setScreen(new Mundo1(mainGame, nombreCaja.getText()));
                     mainGame.getPlaySound().play(mainGame.getSfxVolumen());
                 }
+                else{
+                    alerta.setVisible(true);
+                }
                 }
             };
     }
@@ -233,6 +241,7 @@ public class Menu extends BaseScreen{
             }
         };
     }
+
 
     private ChangeListener botonInfoHandler(){
 

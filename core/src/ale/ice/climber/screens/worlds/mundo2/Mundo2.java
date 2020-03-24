@@ -42,7 +42,7 @@ public class Mundo2 extends Mundo{
         puertaInicio = new Puerta(world, mainGame.getPuertaTexture(),new Vector2(3,1.5f),"puertaInicio");
         puertaFinal = new Puerta(world, mainGame.getPuertaTexture(),new Vector2(6.5f,62),"puertaFinal");
         
-        map = new Mapa(world,textureMap);
+        map = new Mapa(world,textureMap, mainGame.getTextureNieveSuperior());
         nieve = new Nieve(bordeNieve);
         jugador = new Jugador(world,skinJugador, mainGame, new Vector2(5f,1f), nombre);
         

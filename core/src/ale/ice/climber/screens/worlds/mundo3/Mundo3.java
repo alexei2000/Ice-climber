@@ -42,7 +42,7 @@ public class Mundo3 extends Mundo{
         puertaFinal = new Puerta(world, mainGame.getPuertaTexture(),new Vector2(6.5f,62),"puertaFinal");
         frutas = new FrutasMundo1(world,mainGame.getTextureFrutas());
         
-        map = new Mapa(world,textureMap);
+        map = new Mapa(world,textureMap, mainGame.getTextureNieveSuperior());
         nieve = new Nieve(bordeNieve);
         jugador = new Jugador(world,skinJugador, mainGame, new Vector2(5f,1f), nombre);
         
@@ -64,9 +64,8 @@ public class Mundo3 extends Mundo{
     public void siguienteNivel() {
         Jugador.sumarTotalPuntos(Jugador.getPuntosPorMundo()); //frutas
         Jugador.sumarTotalPuntos(100000/tiempo.getValue()); //tiempo
-        System.out.println(Jugador.getTotalPuntos());
-        System.out.println(jugador.getNombre());
-        Jugador.reiniciarPuntosPorMundo();
+        guardarPuntos();
+
         mainGame.setScreen(new Menu(mainGame));
     }
     

@@ -227,6 +227,10 @@ public class Jugador extends ObjetoAnimado {
     public static void reiniciarPuntosPorMundo(){
         Jugador.puntosPorMundo = 0;
     }
+
+    public static void reiniciarPuntosTotales(){
+        Jugador.totalPuntos = 0;
+    }
     
     public void resetNumeroDeVidas(){
         Jugador.numeroDeVidas = 3;

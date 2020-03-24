@@ -6,8 +6,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 
 
 public class Main extends Game {
@@ -41,6 +43,8 @@ public class Main extends Game {
     private String mapa2Texture;
     private String mapa3Texture;
     private String textureFrutas;
+    private String textureNieveSuperior;
+
     
     private AssetManager manager;
 
@@ -135,6 +139,9 @@ public class Main extends Game {
         return manager.get(textureFrutas);
     }
 
+    public Texture getTextureNieveSuperior(){return manager.get(textureNieveSuperior);}
+
+
     
 
     @Override
@@ -159,6 +166,7 @@ public class Main extends Game {
         fondoMenu = "textures/fondoMenu.png";
         puertaTexture = "textures/mapas/puerta.png";
         textureFrutas = "textures/frutas.png";
+        textureNieveSuperior = "textures/mapas/NieveSuperior.png";
 
         musicMenu = "sonidos/music/Caketown 1.mp3";
         musicGame = "sonidos/music/TownTheme.mp3";
@@ -201,6 +209,8 @@ public class Main extends Game {
         manager.load(puertaTexture, Texture.class);
         manager.load(mapa2Texture, Texture.class);
         manager.load(mapa3Texture, Texture.class);
+        manager.load(textureNieveSuperior, Texture.class);
+
 
         setScreen(new Progress(this));
     }

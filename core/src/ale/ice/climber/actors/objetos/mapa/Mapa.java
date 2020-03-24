@@ -23,15 +23,19 @@ public class Mapa extends Objeto{
     private Fixture sueloFixture;
     private Fixture bordeIzquierdo;
     private Fixture bordeDerecho;
+    private Texture nieveSuperior;
     
-    public Mapa(World world,Texture texture){
+    public Mapa(World world,Texture texture, Texture nieveSuperior){
         super(world, texture, 1024f/64f, 96f/64f);
         createBody(new Vector2(width/2,height/2));
+        this.nieveSuperior = nieveSuperior;
     }
     
     @Override
     public void draw(Batch batch, float parentAlpha){
+
         batch.draw(texture,0,0);
+        batch.draw(nieveSuperior,0,4032);
     }
     
     @Override
