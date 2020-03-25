@@ -3,10 +3,10 @@ package ale.ice.climber;
 
 import ale.ice.climber.screens.gui.progress.Progress;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -166,6 +166,9 @@ public class Main extends Game {
 
     @Override
     public void create () {
+
+        Gdx.graphics.setResizable(false);
+        Gdx.graphics.setTitle("Ice Climber");
 
         sfxVolumen = 0.5f;
 
