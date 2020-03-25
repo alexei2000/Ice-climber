@@ -11,6 +11,7 @@ import ale.ice.climber.screens.gui.guiInMenu.dialogo.Dialogo;
 import ale.ice.climber.screens.gui.guiInMenu.fondo.FondoMenu;
 import ale.ice.climber.screens.gui.guiInMenu.options.Options;
 import ale.ice.climber.screens.gui.guiInMenu.puntuacion.Puntuacion;
+import ale.ice.climber.screens.transicion.Transicion;
 import ale.ice.climber.screens.worlds.mundo1.Mundo1;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -76,7 +77,7 @@ public class Menu extends BaseScreen{
         mainGame.getMusicGame().setVolume(0.5f);
         mainGame.getMusicMenu().setLooping(true);
         mainGame.getMusicMenu().setVolume(0.5f);
-        
+
 
     }
     
@@ -100,7 +101,7 @@ public class Menu extends BaseScreen{
     public void hide(){
         mainGame.getMusicMenu().stop();
         mainGame.getMusicGame().play();
-
+        dispose();
     }
     
     @Override
@@ -190,13 +191,13 @@ public class Menu extends BaseScreen{
         return new ChangeListener() {
                 @Override
                 public void changed (ChangeEvent event, Actor actor) {
-                if(!nombreCaja.getText().equals("")){
-                    mainGame.setScreen(new Mundo1(mainGame, nombreCaja.getText()));
-                    mainGame.getPlaySound().play(mainGame.getSfxVolumen());
-                }
-                else{
-                    alerta.setVisible(true);
-                }
+                    if(!nombreCaja.getText().equals("")){
+                        mainGame.setScreen(new Mundo1(mainGame, nombreCaja.getText()));
+                        mainGame.getPlaySound().play(mainGame.getSfxVolumen());
+                    }
+                    else{
+                        alerta.setVisible(true);
+                    }
                 }
             };
     }

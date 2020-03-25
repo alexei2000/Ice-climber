@@ -30,7 +30,7 @@ public class Sun {
         pl.setSoftnessLength(0);
         
     }
-    
+
     public void dispose(){
         rayHandler.dispose();
     }

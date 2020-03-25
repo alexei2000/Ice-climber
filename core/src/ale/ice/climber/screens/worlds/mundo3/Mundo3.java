@@ -12,7 +12,9 @@ import ale.ice.climber.Main;
 import ale.ice.climber.actors.objetos.puerta.Puerta;
 import ale.ice.climber.screens.gui.guiInGame.Vidas;
 import ale.ice.climber.screens.gui.guiInMenu.Menu;
+import ale.ice.climber.screens.transicion.Transicion;
 import ale.ice.climber.screens.worlds.mundo1.FrutasMundo1;
+import ale.ice.climber.screens.worlds.mundo2.Mundo2;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import ale.ice.climber.screens.worlds.Mundo;
@@ -62,11 +64,12 @@ public class Mundo3 extends Mundo{
 
     @Override
     public void siguienteNivel() {
+        int puntosFruta = Jugador.getPuntosPorMundo();
+        int puntosTotales = Jugador.getTotalPuntos();
         Jugador.sumarTotalPuntos(Jugador.getPuntosPorMundo()); //frutas
         Jugador.sumarTotalPuntos(100000/tiempo.getValue()); //tiempo
         guardarPuntos();
-
-        mainGame.setScreen(new Menu(mainGame));
+        mainGame.setScreen(new Transicion(mainGame, "Ganaste!!", new Menu(mainGame), puntosFruta, tiempo.getValue(), puntosTotales));
     }
     
 }

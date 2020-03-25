@@ -19,6 +19,8 @@ import ale.ice.climber.actors.objetos.plataformas.bloques.GeneradorDeBloques;
 import ale.ice.climber.colisiones.Colisiones;
 import ale.ice.climber.screens.gui.guiInGame.Tiempo;
 import ale.ice.climber.screens.gui.guiInGame.Vidas;
+import ale.ice.climber.screens.transicion.Transicion;
+import ale.ice.climber.screens.worlds.mundo2.Mundo2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
@@ -129,7 +131,7 @@ public abstract class Mundo extends BaseScreen {
         stage.dispose();
         world.dispose();
         boxDebug.dispose();
-        sun.dispose(); 
+        sun.dispose();
     }
      
     protected void updateAndDrawLights(){
@@ -164,9 +166,11 @@ public abstract class Mundo extends BaseScreen {
                 mainGame.setScreen(mainGame.getScreen());
             }
             else{
+                int puntosTotales = Jugador.getTotalPuntos();
                 jugador.resetNumeroDeVidas();
                 guardarPuntos();
-                mainGame.setScreen(new Menu(mainGame));
+                mainGame.setScreen(new Transicion(mainGame, "Juego Terminado", new Menu(mainGame), 0, tiempo.getValue(), puntosTotales));
+
                 
             }
             
