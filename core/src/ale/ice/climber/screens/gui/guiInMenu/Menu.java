@@ -11,7 +11,6 @@ import ale.ice.climber.screens.gui.guiInMenu.dialogo.Dialogo;
 import ale.ice.climber.screens.gui.guiInMenu.fondo.FondoMenu;
 import ale.ice.climber.screens.gui.guiInMenu.options.Options;
 import ale.ice.climber.screens.gui.guiInMenu.puntuacion.Puntuacion;
-import ale.ice.climber.screens.transicion.Transicion;
 import ale.ice.climber.screens.worlds.mundo1.Mundo1;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -73,20 +72,12 @@ public class Menu extends BaseScreen{
         stage.addActor(info);
         stage.addActor(alerta);
 
-        mainGame.getMusicGame().setLooping(true);
-        mainGame.getMusicGame().setVolume(0.5f);
-        mainGame.getMusicMenu().setLooping(true);
-        mainGame.getMusicMenu().setVolume(0.5f);
-
 
     }
     
     @Override
     public void show(){
-
-        mainGame.getMusicGame().stop();
         mainGame.getMusicMenu().play();
-
     }
     
     @Override
@@ -100,7 +91,6 @@ public class Menu extends BaseScreen{
     @Override 
     public void hide(){
         mainGame.getMusicMenu().stop();
-        mainGame.getMusicGame().play();
         dispose();
     }
     
@@ -126,11 +116,17 @@ public class Menu extends BaseScreen{
         puntuaciones = ventanaPuntuacion.getTable();
         puntuaciones.setVisible(false);
 
-        Dialogo ventanaAyuda = new Dialogo(this, mainGame, "Ayuda","sfjsadnfjasdfsdfhsajdfjhasdf\nasdfasdfsfd");
+        Dialogo ventanaAyuda = new Dialogo(this, mainGame, "Ayuda", "El juego consiste en escalar los 3 niveles,\n"
+                + "rompiendo los bloques de hielo, mientras\n se evitan los monstruos o precipicios\n"
+                + " y se intenta recoger la mayor cantidad\n de frutas posibles, para controlar al\n personaje se utilizan las 4 flechas"
+                + "\n del teclado. A Jugar!!!!");
+
         ayuda = ventanaAyuda.getTable();
         ayuda.setVisible(false);
 
-        Dialogo ventanaInfo = new Dialogo(this, mainGame,"Info" ,"sfjsadnfjasdfsdfhsajdfjhasdf\nasdfasdfsfd");
+        Dialogo ventanaInfo = new Dialogo(this, mainGame,"Info" ,"Desarrollado por: Alexei Hernandez, Jose Seijas, Angel Anton, Adrian Moreno\n"
+                + "Lenguaje Utilizado: Java\n"
+                + "Librerias Utilizadas: Libgdx");
         info = ventanaInfo.getTable();
         info.setVisible(false);
 

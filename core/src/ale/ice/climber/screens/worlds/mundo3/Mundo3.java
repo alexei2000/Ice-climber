@@ -69,6 +69,8 @@ public class Mundo3 extends Mundo{
         Jugador.sumarTotalPuntos(Jugador.getPuntosPorMundo()); //frutas
         Jugador.sumarTotalPuntos(100000/tiempo.getValue()); //tiempo
         guardarPuntos();
+        mainGame.getMusicGame().stop();
+        mainGame.getNextLvlSound().play(mainGame.getSfxVolumen());
         mainGame.setScreen(new Transicion(mainGame, "Ganaste!!", new Menu(mainGame), puntosFruta, tiempo.getValue(), puntosTotales));
     }
     

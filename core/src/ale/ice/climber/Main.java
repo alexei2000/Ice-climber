@@ -25,6 +25,10 @@ public class Main extends Game {
     private String clickSound;
     private String playSound;
     private String deathSound;
+    private String nextLvlSound;
+    private String comerSound;
+    private String gameOverSound;
+    private String puntoSound;
 
     // skins
     private String skinUI;
@@ -73,6 +77,22 @@ public class Main extends Game {
 
     public Sound getDeathSound(){
         return manager.get(deathSound);
+    }
+
+    public Sound getNextLvlSound(){
+        return manager.get(nextLvlSound);
+    }
+
+    public Sound getComerSound(){
+        return manager.get(comerSound);
+    }
+
+    public Sound getGameOverSound(){
+        return manager.get(gameOverSound);
+    }
+
+    public Sound getPuntoSound(){
+        return manager.get(puntoSound);
     }
 
     public Music getMusicMenu(){
@@ -175,6 +195,10 @@ public class Main extends Game {
         jumpSound = "sonidos/sfx/jump.mp3";
         playSound = "sonidos/sfx/play.wav";
         deathSound = "sonidos/sfx/death.wav";
+        comerSound = "sonidos/sfx/comer.mp3";
+        nextLvlSound = "sonidos/sfx/nextLvl.wav";
+        gameOverSound = "sonidos/sfx/gameOver.mp3";
+        puntoSound = "sonidos/sfx/punto.wav";
 
         
         manager = new AssetManager();
@@ -193,6 +217,11 @@ public class Main extends Game {
         manager.load(clickSound, Sound.class);
         manager.load(playSound, Sound.class);
         manager.load(deathSound, Sound.class);
+        manager.load(nextLvlSound, Sound.class);
+        manager.load(comerSound, Sound.class);
+        manager.load(gameOverSound, Sound.class);
+        manager.load(puntoSound, Sound.class);
+
 
 
         //textures

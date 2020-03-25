@@ -90,6 +90,7 @@ public abstract class Mundo extends BaseScreen {
     
     @Override 
     public void show(){
+        mainGame.getMusicGame().play();
         createItems();
     }
     
@@ -158,20 +159,20 @@ public abstract class Mundo extends BaseScreen {
     public void murioElJugador(){
         seCayoJugador();
         if(hayQueReiniciar){
-            mainGame.getDeathSound().play(mainGame.getSfxVolumen());
             stage.getCamera().position.y = Gdx.graphics.getHeight()/2f;
             jugador.perderUnaVida();
             Jugador.reiniciarPuntosPorMundo();
             if(jugador.getNumeroDeVidas() != 0){
+                mainGame.getDeathSound().play(mainGame.getSfxVolumen());
                 mainGame.setScreen(mainGame.getScreen());
             }
             else{
                 int puntosTotales = Jugador.getTotalPuntos();
                 jugador.resetNumeroDeVidas();
                 guardarPuntos();
+                mainGame.getMusicGame().stop();
+                mainGame.getGameOverSound().play(mainGame.getSfxVolumen());
                 mainGame.setScreen(new Transicion(mainGame, "Juego Terminado", new Menu(mainGame), 0, tiempo.getValue(), puntosTotales));
-
-                
             }
             
         }

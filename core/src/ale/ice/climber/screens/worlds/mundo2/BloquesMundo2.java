@@ -19,7 +19,26 @@ public class BloquesMundo2 extends GeneradorDeBloques {
         super(world, textureBloqueSolido, textureBloqueRoto);
         
         generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(9,1);
+        generarBloquesEnLinea(11,0);
         generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(8,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(11,0);
+        generarBloquesEnLinea(7,1);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(11,0);
+        generarBloquesEnLinea(7,1);
+        generarBloquesEnLinea(10,0);
+        generarBloquesEnLinea(10,1);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(11,0);
+        generarBloquesEnLinea(12,1);
+        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(5,1);
+        generarBloquesEnLinea(15,0);
         generarBloquesEnLinea(5,1);
         generarBloquesEnLinea(10,0);
         generarBloquesEnLinea(8,1);
@@ -27,29 +46,7 @@ public class BloquesMundo2 extends GeneradorDeBloques {
         generarBloquesEnLinea(5,1);
         generarBloquesEnLinea(10,0);
         generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(5,0);
-        generarBloquesEnLinea(5,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(5,0);
-        generarBloquesEnLinea(5,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(5,0);
-        generarBloquesEnLinea(5,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(5,0);
-        generarBloquesEnLinea(5,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(5,0);
-        generarBloquesEnLinea(5,1);
-        generarBloquesEnLinea(10,0);
-        generarBloquesEnLinea(8,1);
-        generarBloquesEnLinea(5,0);
+        generarBloquesEnLinea(6,0);
         
     }
     

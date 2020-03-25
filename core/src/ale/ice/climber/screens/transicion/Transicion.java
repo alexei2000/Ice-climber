@@ -23,6 +23,7 @@ public class Transicion extends BaseScreen {
     private float velocidad;
     private float state;
     private int puntosTiempo;
+    private float contadorDeSonido;
 
 
     private Table tabla;
@@ -53,7 +54,7 @@ public class Transicion extends BaseScreen {
             this.puntosTiempo = 0;
         }
 
-
+        this.contadorDeSonido = 0;
         this.titulo = titulo;
         this.puntosFrutas = puntosFrutas;
         this.tiempo = tiempo;
@@ -135,6 +136,12 @@ public class Transicion extends BaseScreen {
     private void actualizar(float delta){
 
         if(!animacionJugador.getPuedeCaminar()){
+            contadorDeSonido += delta;
+            if(contadorDeSonido>=0.1f){
+                mainGame.getPuntoSound().play(mainGame.getSfxVolumen());
+                contadorDeSonido = 0;
+            }
+
             if(state == 0){
                 contador+=velocidad*delta;
                 tiempoLabel.setText("Tiempo: "+(int)contador);
@@ -194,6 +201,7 @@ public class Transicion extends BaseScreen {
 
         if(state == 6){
             if(animacionJugador.getX() > 1024){
+                mainGame.getPlaySound().play(mainGame.getSfxVolumen());
                 mainGame.setScreen(screen);
             }
         }

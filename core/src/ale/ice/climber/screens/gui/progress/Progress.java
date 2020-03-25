@@ -46,6 +46,10 @@ public class Progress extends BaseScreen {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         if(mainGame.getManager().update()){
+            mainGame.getMusicGame().setLooping(true);
+            mainGame.getMusicGame().setVolume(0.5f);
+            mainGame.getMusicMenu().setLooping(true);
+            mainGame.getMusicMenu().setVolume(0.5f);
             mainGame.setScreen(new Menu(mainGame)) ;
         }
     }

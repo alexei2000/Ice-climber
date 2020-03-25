@@ -91,7 +91,7 @@ public class Colisiones implements ContactListener {
                     break;
                 }
             }
-            mainGame.getBreakSound().play(mainGame.getSfxVolumen()*0.7f);
+            mainGame.getComerSound().play(mainGame.getSfxVolumen());
             Jugador.sumarPuntosPorMundo(50);
         }
     }
@@ -100,7 +100,7 @@ public class Colisiones implements ContactListener {
         if(hanColisionado(contact,"pies","paredDerecha")){
             mundo.getJugador().setCambiarEntidadPosicion(1);
         }
-        else if(hanColisionado(contact,"pies", "paredIzquierda")){
+        if(hanColisionado(contact,"pies", "paredIzquierda")){
             mundo.getJugador().setCambiarEntidadPosicion(2);
         }
     }
